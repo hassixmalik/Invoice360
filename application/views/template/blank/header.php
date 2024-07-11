@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
+  <link rel="icon" href="assets/dist/img/nmr_icon.png" type="image">
   <!-- Vendors style -->
   <!-- Sweet Alert 2 -->
   <link rel="stylesheet" href="assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">

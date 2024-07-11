@@ -9,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <base href="<?php echo base_url(); ?>" />
   <title><?php echo $page_title; ?></title>
-
+  <link rel="icon" href="assets/dist/img/nmr_icon.png" type="image">
   <!-- Google Font: Source Sans Pro -->
   <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
   <!-- Font Awesome Icons -->
