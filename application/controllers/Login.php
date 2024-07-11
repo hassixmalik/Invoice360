@@ -18,7 +18,7 @@ class Login extends CI_Controller {
             $password = $this->input->post('password');
 
             if($email=='nmr' && $password=='786'){
-                  $this->template->page_title('Dashboard')->load('starter');
+                  redirect('Starter/index');
             }
             else{
                   $data['error_message']=TRUE;
