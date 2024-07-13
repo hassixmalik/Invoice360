@@ -53,5 +53,7 @@ $route['default_controller'] = 'login';
 $route['authenticate'] = 'login/authenticate';
 $route['customers'] = 'customers';
 $route['addcustomer'] = 'customers/addcustomer';
+$route['savecustomerform'] = 'customers/savecustomerform';
+
 $route['404_override'] = 'errors/Custom404';
 $route['translate_uri_dashes'] = FALSE;

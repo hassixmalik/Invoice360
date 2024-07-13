@@ -5,7 +5,7 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="#" class="h1"><b>NMR</b>- LLC</a>
+      <a href="#" class="h1"><b>NMR</b>&nbsp; Co W.LL</a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
