@@ -29,4 +29,14 @@
     public function insert_shipping_address($data) {
         $this->db->insert('shipping_address', $data);
     }
+
+    public function get_all_customers() {
+      $this->db->select('nc.customer_name, nc.company_name, nc.customer_email, nc.customer_phone, nc.receivables');
+      $this->db->from('new_customer nc');
+      $this->db->join('other_details_of_customer odc', 'odc.customer_unique_id = nc.customer_unique_id', 'left');
+      $this->db->join('billing_address ba', 'ba.customer_unique_id = nc.customer_unique_id', 'left');
+      $this->db->join('shipping_address sa', 'sa.customer_unique_id = nc.customer_unique_id', 'left');
+      $query = $this->db->get();
+      return $query->result_array();
+    }
   }

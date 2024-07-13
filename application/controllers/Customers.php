@@ -2,9 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Customers extends CI_Controller {
+	public function __construct()
+	{
+	  parent::__construct();
+	  $this->load->model('Users');
+	}
+  
 	public function index()
 	{
-		$this->template->page_title('Contacts | NMR')->load('customers');
+        $data['customers'] = $this->Users->get_all_customers();
+		$this->template->page_title('Contacts | NMR')->load('customers', $data);
 	}
 
     public function addcustomer(){
@@ -12,9 +19,6 @@ class Customers extends CI_Controller {
     }
 
 	public function savecustomerform() {
-		// Load the model
-		$this->load->model('Users');
-	
 		// Get form data
 		$customer_type = $this->input->post('customer_type');
 		$customer_name = $this->input->post('customer_name');
