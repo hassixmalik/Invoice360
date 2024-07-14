@@ -39,4 +39,9 @@
       $query = $this->db->get();
       return $query->result_array();
     }
+
+    public function get_customers() {
+      $query = $this->db->get('new_customer');
+      return $query->result_array();
+    }
   }

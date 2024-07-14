@@ -55,6 +55,9 @@ $route['customers'] = 'customers';
 $route['addcustomer'] = 'customers/addcustomer';
 $route['savecustomerform'] = 'customers/savecustomerform';
 $route['quotation'] = 'quotation';
+$route['quotationspage'] = 'quotation/quotationspage';
+$route['addquotation'] = 'quotation/addquotation';
+$route['save_quotation'] = 'quotation/save_quotation';
 
 $route['404_override'] = 'errors/Custom404';
 $route['translate_uri_dashes'] = FALSE;

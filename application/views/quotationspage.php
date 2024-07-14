@@ -1,43 +1,75 @@
-<style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
         .table th, .table td {
             vertical-align: middle;
         }
         .dropdown-toggle::after {
             margin-left: 0.5em;
         }
-</style>
-<div class="row">
-<div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1>Quotations</h1>
-        <div class="">
-            <a href="<?php echo base_url('addcustomer') ?>" class="btn btn-primary" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-plus"></i> New
-            </a>
+        .search-icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .search-icon-btn i {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="container mt-1">
+            <div class="d-flex justify-content-end align-items-center mb-3">
+                <div class="">
+                    <a href="<?php echo base_url('addquotation') ?>" class="btn btn-primary" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-plus"></i> New
+                    </a>
+                </div>
+            </div>
+            
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Quote Number</th>
+                        <th>Reference Number</th>
+                        <th>Customer Name</th>
+                        <th>Status</th>
+                        <th>Amount</th>
+                        <th>
+                            <button class="search-icon-btn">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($quotations)): ?>
+                        <?php foreach ($quotations as $quotation): ?>
+                            <tr>
+                                <td><?php echo $quotation['quote_date']; ?></td>
+                                <td><?php echo $quotation['quotation_no']; ?></td>
+                                <td><?php echo $quotation['reference_no']; ?></td>
+                                <td><?php echo $quotation['customer_name']; ?></td>
+                                <td>Invoiced or uninvoiced</td>
+                                <td><?php echo $quotation['amount']; ?></td>
+                                <td><button class="search-icon-btn"><i class="fas fa-search"></i></button></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="7" class="text-center">No quotations found</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
         </div>
     </div>
-    
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>NAME</th>
-                <th>COMPANY NAME</th>
-                <th>EMAIL</th>
-                <th>WORK PHONE</th>
-                <th>RECEIVABLES (BCY)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Example row -->
-            <tr>
-                <td>John Doe</td>
-                <td>Example Corp</td>
-                <td>john.doe@example.com</td>
-                <td>(123) 456-7890</td>
-                <td>BHD100.00</td>
-            </tr>
-            <!-- More rows go here -->
-        </tbody>
-    </table>
-</div>
-</div>
+</body>
+</html>

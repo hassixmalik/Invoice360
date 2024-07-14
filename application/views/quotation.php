@@ -77,6 +77,7 @@
             padding: 20mm;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
+            font-size:10px;
         }
 
         .container {
