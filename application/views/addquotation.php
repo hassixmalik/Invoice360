@@ -1,11 +1,8 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quotation Form</title>
     <style>
-        /* body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 20px;
-        } */
         .container {
             max-width: 800px;
             margin: auto;
@@ -13,8 +10,8 @@
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        h1, h2 {
-            color: #6e82b7
+        h2 {
+            color: #6e82b7;
         }
         label {
             display: block;
@@ -56,21 +53,21 @@
         }
         .btn-light:hover {
             background-color: #e2e6ea;
-            color:white;
+            color: white;
         }
         .btn:hover {
             background-color: #0056b3;
-            color:white;
+            color: white;
         }
         .text-right {
             text-align: right;
         }
     </style>
-
+</head>
 <body>
 
 <div class="container">
-    <form id="quotation-form">
+    <form id="quotation-form" action="<?php echo base_url('quotation/save_quotation'); ?>" method="post">
         <h2>Customer Details</h2>
         <label for="customerName">Customer Name</label>
         <select id="customerName" name="customer_name" required>
@@ -78,7 +75,6 @@
                 <option value="<?php echo $customer['customer_unique_id']; ?>"><?php echo $customer['customer_name']; ?></option>
             <?php endforeach; ?>
         </select>
-
 
         <h2>Quotation Details</h2>
         <label for="quotationNo">Quotation No</label>
@@ -117,8 +113,8 @@
                 <tr>
                     <td><input type="text" name="service_description[]"></td>
                     <td><input type="text" name="area[]"></td>
-                    <td><input type="number" name="qty[]" min="0"></td>
-                    <td><input type="number" name="price[]" step="0.01" min="0"></td>
+                    <td><input type="number" name="qty[]" min="0" oninput="calculateAmt(this)"></td>
+                    <td><input type="number" name="price[]" step="0.01" min="0" oninput="calculateAmt(this)"></td>
                     <td><input type="number" name="amt[]" step="0.01" min="0" readonly></td>
                 </tr>
             </tbody>
@@ -129,7 +125,7 @@
         <textarea id="terms" name="terms" rows="4" required></textarea>
 
         <div class="text-right">
-            <a type="submit" class="btn" href='<?php echo base_url('save_quotation') ?>'>Save</a>
+            <button type="submit" class="submit btn">Save</button>
         </div>
     </form>
 </div>
@@ -142,17 +138,22 @@
         newRow.innerHTML = `
             <td><input type="text" name="service_description[]"></td>
             <td><input type="text" name="area[]"></td>
-            <td><input type="number" name="qty[]" min="0"></td>
-            <td><input type="number" name="price[]" step="0.01" min="0"></td>
+            <td><input type="number" name="qty[]" min="0" oninput="calculateAmt(this)"></td>
+            <td><input type="number" name="price[]" step="0.01" min="0" oninput="calculateAmt(this)"></td>
             <td><input type="number" name="amt[]" step="0.01" min="0" readonly></td>
         `;
     }
-    
-    document.getElementById('quotation-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        // Save the form data to the database
-    });
+
+    function calculateAmt(element) {
+        const row = element.closest('tr');
+        const qty = row.querySelector('input[name="qty[]"]').value;
+        const price = row.querySelector('input[name="price[]"]').value;
+        const amt = row.querySelector('input[name="amt[]"]');
+        amt.value = (qty * price).toFixed(2);
+    }
+
+
 </script>
 
 </body>
-
+</html>

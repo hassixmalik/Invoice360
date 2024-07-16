@@ -57,9 +57,9 @@
                                 <td><?php echo $quotation['quotation_no']; ?></td>
                                 <td><?php echo $quotation['reference_no']; ?></td>
                                 <td><?php echo $quotation['customer_name']; ?></td>
-                                <td>Invoiced or uninvoiced</td>
+                                <td><?php echo $quotation['status']; ?></td>
                                 <td><?php echo $quotation['amount']; ?></td>
-                                <td><button class="search-icon-btn"><i class="fas fa-search"></i></button></td>
+                                <td><a href="<?php echo base_url('viewquotation/' . $quotation['quotation_no']); ?>"><i class="fas fa-eye"> &nbsp; view</i></a></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>

@@ -16,7 +16,7 @@ class Quotation_model extends MY_Model {
     }
 
     public function get_quotations() {
-        $this->db->select('q.quote_date, q.quotation_no, q.reference_no, c.customer_name, i.sub_total as amount');
+        $this->db->select('q.quote_date, q.quotation_no, q.reference_no, c.customer_name, q.status, i.sub_total as amount');
         $this->db->from('quotations q');
         $this->db->join('new_customer c', 'q.customer_unique_id = c.customer_unique_id');
         $this->db->join('items i', 'q.quotation_id = i.quotation_id');

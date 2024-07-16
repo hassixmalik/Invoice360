@@ -33,15 +33,21 @@ class Quotation extends CI_Controller {
             'project_name' => $this->input->post('project_name'),
             'subject' => $this->input->post('subject')
         );
-
+    
         $quotation_id = $this->Quotation_model->save_quotation($quotation_data);
-
+    
         $item_data = array();
         $service_descriptions = $this->input->post('service_description');
         $areas = $this->input->post('area');
         $qtys = $this->input->post('qty');
         $prices = $this->input->post('price');
         $amts = $this->input->post('amt');
+        $sub_total=0;
+        //echo '<script>console.log("Service Descriptions: ' . json_encode($service_descriptions) . '");</script>';
+
+        for ($i = 0; $i < count($service_descriptions); $i++) {
+            $sub_total= $sub_total+$amts[$i];
+        }
 
         for ($i = 0; $i < count($service_descriptions); $i++) {
             $item_data[] = array(
@@ -51,19 +57,25 @@ class Quotation extends CI_Controller {
                 'qty' => $qtys[$i],
                 'price' => $prices[$i],
                 'amt' => $amts[$i],
-                'sub_total' => array_sum($amts)
+                'sub_total'=>$sub_total
             );
         }
-
+    
         $this->Quotation_model->save_items($item_data);
-
+    
         $terms_data = array(
             'quotation_id' => $quotation_id,
             'terms' => $this->input->post('terms')
         );
-
+    
         $this->Quotation_model->save_terms($terms_data);
-
+    
         redirect('quotation/quotationspage'); // Redirect to success page or wherever you need
     }
+
+    public function viewquotation($quotation_no){
+        
+        $this->template->page_title('Quotations')->load('quotation');
+    }
+    
 }

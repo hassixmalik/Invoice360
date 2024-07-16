@@ -152,7 +152,7 @@
             <a href="#"><i class="fas fa-print"></i> Print</a>
         </div>
     </div>
-    <button class="btn-convert"><i class="fas fa-exchange-alt"></i> Convert to Invoice</button>
+    <button class="btn-convert"><i class="fas fa-exchange-alt"></i>Record Payment</button>
 </div>
 <div class="contains">
 <div class="container">
@@ -163,8 +163,8 @@
             <p><a href="mailto:naeem.machinerepairing@gmail.com">naeem.machinerepairing@gmail.com</a></p>
         </div>
         <div class="invoice-details">
-            <h1>Quote</h1>
-            <p><span id="quote-number">#145</span></p>
+            <h1>Invoice</h1>
+            <p>Invoice Number: <span id="invoice-number">#145</span></p>
             <p>Balance Due</p>
             <p class="bold">Balance Due: <span id="balance-due">BHD75.00</span></p>
         </div>
@@ -180,7 +180,8 @@
                     <p><span id="customer-city">City</span></p>
                 </td>
                 <td style="width: 50%;" class="text-right">
-                    <p>Date: <span id="invoice-date">Add date</span></p>
+                    <p>Invoice Date: <span id="invoice-date">Add date</span></p>
+                    <p>Terms: <span id="terms">Custom</span></p>
                     <p>Due Date: <span id="due-date">Add due date</span></p>
                 </td>
             </tr>
