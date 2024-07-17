@@ -111,7 +111,7 @@
             </thead>
             <tbody style='background-color: #80808014;'>
                 <tr>
-                    <td><input type="text" name="service_description[]"></td>
+                    <td><textarea type="text" name="service_description[]"></textarea></td>
                     <td><input type="text" name="area[]"></td>
                     <td><input type="number" name="qty[]" min="0" oninput="calculateAmt(this)"></td>
                     <td><input type="number" name="price[]" step="0.01" min="0" oninput="calculateAmt(this)"></td>
@@ -136,7 +136,7 @@
         const newRow = table.insertRow();
         
         newRow.innerHTML = `
-            <td><input type="text" name="service_description[]"></td>
+            <td><textarea type="text" name="service_description[]"></textarea></td>
             <td><input type="text" name="area[]"></td>
             <td><input type="number" name="qty[]" min="0" oninput="calculateAmt(this)"></td>
             <td><input type="number" name="price[]" step="0.01" min="0" oninput="calculateAmt(this)"></td>

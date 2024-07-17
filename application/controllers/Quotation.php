@@ -74,8 +74,10 @@ class Quotation extends CI_Controller {
     }
 
     public function viewquotation($quotation_no){
-        
-        $this->template->page_title('Quotations')->load('quotation');
+        $data['quotation_details'] = $this->Quotation_model->get_quotation_details($quotation_no);
+        $data['quotation_no'] = $quotation_no;
+
+        $this->template->page_title('Quotations')->load('quotation', $data);
     }
     
 }

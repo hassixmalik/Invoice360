@@ -140,8 +140,8 @@
         background-color: #218838;
     }
     </style>
-<body>
 
+<body>
 <div class="button-row">
     <button class="btn-edit"><i class="fas fa-edit"></i> Edit</button>
     <button class="btn-send-mail"><i class="fas fa-envelope"></i> Send Mail</button>
@@ -149,7 +149,7 @@
         <button class="dropdown-toggle"><i class="fas fa-file-alt"></i> PDF/Print</button>
         <div class="dropdown-menu">
             <a href="#"><i class="fas fa-file-pdf"></i> PDF</a>
-            <a href="#"><i class="fas fa-print"></i> Print</a>
+            <a href="#"><i class="fas fa-print" id="printBtn"></i> Print</a>
         </div>
     </div>
     <button class="btn-convert"><i class="fas fa-exchange-alt"></i> Convert to Invoice</button>
@@ -164,9 +164,9 @@
         </div>
         <div class="invoice-details">
             <h1>Quote</h1>
-            <p><span id="quote-number">#145</span></p>
+            <p><span id="quote-number">#<?= $quotation_no ?></span></p>
             <p>Balance Due</p>
-            <p class="bold">Balance Due: <span id="balance-due">BHD75.00</span></p>
+            <p class="bold">Balance Due: <span id="balance-due">BHD: 20</span></p>
         </div>
     </div>
 
@@ -175,18 +175,18 @@
             <tr>
                 <td style="width: 50%;">
                     <p>Bill To</p>
-                    <p class="bold"><span id="customer-name">Name in bold</span></p>
-                    <p><span id="customer-address">Address</span></p>
-                    <p><span id="customer-city">City</span></p>
+                    <p class="bold"><span id="customer-name"><?= $quotation_details[0]['Name'] ?></span></p>
+                    <p><span id="customer-address"><?= $quotation_details[0]['Address'] ?></span></p>
+                    <p><span id="customer-city"><?= $quotation_details[0]['City'] ?></span></p>
                 </td>
                 <td style="width: 50%;" class="text-right">
-                    <p>Date: <span id="invoice-date">Add date</span></p>
-                    <p>Due Date: <span id="due-date">Add due date</span></p>
+                    <p>Date: <span id="invoice-date"><?= $quotation_details[0]['Date'] ?></span></p>
+                    <p>Due Date: <span id="due-date"><?= $quotation_details[0]['Due date'] ?></span></p>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <p>Subject: <span id="invoice-subject">Add subject here</span></p>
+                    <p>Subject: <span id="invoice-subject"><?= $quotation_details[0]['Subject'] ?></span></p>
                 </td>
             </tr>
         </tbody>
@@ -196,7 +196,7 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Services</th>
+                <!-- <th>Services</th> -->
                 <th>Work Description</th>
                 <th>Area</th>
                 <th>Qty</th>
@@ -205,19 +205,19 @@
             </tr>
         </thead>
         <tbody id="invoice-items">
-            <tr>
-                <td>1</td>
-                <td>Service 1</td>
-                <td>Work Description 1</td>
-                <td>Area 1</td>
-                <td>1</td>
-                <td>10.00</td>
-                <td>10.00</td>
-            </tr>
-            <!-- More rows can be added here dynamically -->
+            <?php foreach($quotation_details as $index => $item): ?>
+                <tr>
+                    <td><?= $index + 1 ?></td>
+                    <td><?= $item['Work description'] ?></td>
+                    <td><?= $item['Area'] ?></td>
+                    <td><?= $item['Quantity'] ?></td>
+                    <td><?= $item['Price'] ?></td>
+                    <td><?= $item['Amount'] ?></td>
+                </tr>
+            <?php endforeach; ?>
             <tr>
                 <td colspan="6" class="text-right bold">Total Receivable</td>
-                <td><span id="total-receivable">10.00</span></td>
+                <td><span id="total-receivable"><?= $quotation_details[0]['Subtotal'] ?></span></td>
             </tr>
         </tbody>
     </table>
@@ -231,13 +231,32 @@
     <p>
         Appreciate your interest to do business with NMR.
     </p>
-</div>
-
-<footer>
+    <p style='text-align: end;'><img src="assets\dist\img\signature.jpg" style='width:130px;' alt=""></p>
+    <footer>
     C.R No: 132138-1 Building 2596B, Road 4450, Block 744, Al Ramli Kingdom of Bahrain<br>
     Email: <a href="mailto:naeem.machinerepairing@gmail.com">naeem.machinerepairing@gmail.com</a> , Mob No: +973 35952200, +97366686786
-</footer>
+    </footer>
+</div>
+
+
 </div>
 </body>
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
+<script>
+document.getElementById('printBtn').addEventListener('click', function () {
+    var element = document.getElementById('contentToPrint');
+
+    var opt = {
+        margin:       0.5,
+        filename:     'Quotation.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+
+    // New Promise-based usage:
+    html2pdf().set(opt).from(element).save();
+});
+</script>

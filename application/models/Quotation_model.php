@@ -25,5 +25,30 @@ class Quotation_model extends MY_Model {
         return $query->result_array();
     }
 
+    public function get_quotation_details($quotation_no) {
+        $this->db->select('
+            q.quote_date AS `Date`,
+            dp.due_date AS `Due date`,
+            nc.customer_name AS `Name`,
+            ba.address AS `Address`,
+            ba.city AS `City`,
+            q.subject AS `Subject`,
+            i.service_description AS `Work description`,
+            i.area AS `Area`,
+            i.qty AS `Quantity`,
+            i.price AS `Price`,
+            i.amt AS `Amount`,
+            i.sub_total AS `Subtotal`
+        ');
+        $this->db->from('quotations q');
+        $this->db->join('new_customer nc', 'q.customer_unique_id = nc.customer_unique_id');
+        $this->db->join('billing_address ba', 'nc.customer_unique_id = ba.customer_unique_id');
+        $this->db->join('items i', 'q.quotation_id = i.quotation_id');
+        $this->db->join('due_payments dp', 'q.quotation_id = dp.quotation_id', 'left');
+        $this->db->where('q.quotation_no', $quotation_no);
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
     
 }
