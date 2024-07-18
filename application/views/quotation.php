@@ -270,10 +270,10 @@ h1 {
                 </ul>
                 </p>
             </p>
-            <p>
+            <p><b>
             Thanks for Trusting in Naeem Machine Repairing Co.
             For Naeem Machine Repairing Co W.L.L
-            </p>
+            </b></p>
             <p style='text-align: end;'><img class="signature-img" src="<?php echo base_url('assets/dist/img/signature.jpg'); ?>" style='width:130px;' alt=""></p>
         </div>
         
