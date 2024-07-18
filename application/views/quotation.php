@@ -186,6 +186,7 @@ h1 {
 </div>
 <div class="contains" id='contentToPrint'>
     <div class="container">
+    <p><img class="signature-img" src="<?php echo base_url('assets/dist/img/nmrlogo.jpg'); ?>" style='width:130px;' alt=""></p>
         <div class="invoice-header">
             <div class="company-details">
                 <p><strong>Naeem Machine Repairing CO W.L.L</strong></p>
