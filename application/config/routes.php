@@ -59,6 +59,7 @@ $route['quotationspage'] = 'quotation/quotationspage';
 $route['addquotation'] = 'quotation/addquotation';
 $route['save_quotation'] = 'quotation/save_quotation';
 $route['viewquotation/(:num)'] = 'quotation/viewquotation/$1';
+$route['editquotation/(:num)'] = 'quotation/editquotation/$1';
 
 
 $route['404_override'] = 'errors/Custom404';

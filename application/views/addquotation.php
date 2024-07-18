@@ -65,7 +65,6 @@
     </style>
 </head>
 <body>
-
 <div class="container">
     <form id="quotation-form" action="<?php echo base_url('quotation/save_quotation'); ?>" method="post">
         <h2>Customer Details</h2>
@@ -78,25 +77,25 @@
 
         <h2>Quotation Details</h2>
         <label for="quotationNo">Quotation No</label>
-        <input type="text" id="quotationNo" name="quotation_no" required>
+        <input type="text" id="quotationNo" name="quotation_no" value="<?php echo $quotation_details[0]['Quotation No']; ?>" required>
 
         <label for="referenceNo">Reference No</label>
-        <input type="text" id="referenceNo" name="reference_no">
+        <input type="text" id="referenceNo" name="reference_no" value="<?php echo $quotation_details[0]['Reference No']; ?>">
 
         <label for="quoteDate">Quote Date</label>
-        <input type="date" id="quoteDate" name="quote_date" required>
+        <input type="date" id="quoteDate" name="quote_date" value="<?php echo $quotation_details[0]['Quote Date']; ?>" required>
 
         <label for="expiryDate">Expiry Date</label>
-        <input type="date" id="expiryDate" name="expiry_date" required>
+        <input type="date" id="expiryDate" name="expiry_date" value="<?php echo $quotation_details[0]['Expiry Date']; ?>" required>
 
         <label for="salesperson">Salesperson</label>
-        <input type="text" id="salesperson" name="salesperson">
+        <input type="text" id="salesperson" name="salesperson" value="<?php echo $quotation_details[0]['Salesperson']; ?>">
 
         <label for="projectName">Project Name</label>
-        <input type="text" id="projectName" name="project_name">
+        <input type="text" id="projectName" name="project_name" value="<?php echo $quotation_details[0]['Project Name']; ?>">
 
         <label for="subject">Subject</label>
-        <input type="text" id="subject" name="subject">
+        <input type="text" id="subject" name="subject" value="<?php echo $quotation_details[0]['Subject']; ?>">
 
         <h2>Item Details</h2>
         <table id="itemTable">
@@ -110,19 +109,21 @@
                 </tr>
             </thead>
             <tbody style='background-color: #80808014;'>
-                <tr>
-                    <td><textarea type="text" name="service_description[]"></textarea></td>
-                    <td><input type="text" name="area[]"></td>
-                    <td><input type="number" name="qty[]" min="0" oninput="calculateAmt(this)"></td>
-                    <td><input type="number" name="price[]" step="0.01" min="0" oninput="calculateAmt(this)"></td>
-                    <td><input type="number" name="amt[]" step="0.01" min="0" readonly></td>
-                </tr>
+                <?php foreach($quotation_details as $index => $item): ?>
+                    <tr>
+                        <td><textarea name="service_description[]"><?php echo $item['Services Description']; ?></textarea></td>
+                        <td><input type="text" name="area[]" value="<?php echo $item['Area']; ?>"></td>
+                        <td><input type="number" name="qty[]" value="<?php echo $item['Qty']; ?>" min="0" oninput="calculateAmt(this)"></td>
+                        <td><input type="number" name="price[]" value="<?php echo $item['Price']; ?>" step="0.01" min="0" oninput="calculateAmt(this)"></td>
+                        <td><input type="number" name="amt[]" value="<?php echo $item['Amt (BHD)']; ?>" step="0.01" min="0" readonly></td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
         <button type="button" class="btn btn-light" onclick="addRow()">Add New Row</button>
 
         <h2>Terms and Conditions</h2>
-        <textarea id="terms" name="terms" rows="4" required></textarea>
+        <textarea id="terms" name="terms" rows="4" required value='hasdasdasdasdas'></textarea>
 
         <div class="text-right">
             <button type="submit" class="submit btn">Save</button>
@@ -151,9 +152,6 @@
         const amt = row.querySelector('input[name="amt[]"]');
         amt.value = (qty * price).toFixed(2);
     }
-
-
 </script>
-
 </body>
 </html>

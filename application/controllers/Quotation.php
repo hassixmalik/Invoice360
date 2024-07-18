@@ -19,6 +19,23 @@ class Quotation extends CI_Controller {
 
     public function addquotation(){
         $data['customers'] = $this->Users->get_customers();
+        $data['quotation_details'] = [
+            [
+                'customer_unique_id' => '',
+                'Quotation No' => '',
+                'Reference No' => '',
+                'Quote Date' => '',
+                'Expiry Date' => '',
+                'Salesperson' => '',
+                'Project Name' => '',
+                'Subject' => '',
+                'Services Description' => '',
+                'Area' => '',
+                'Qty' => '',
+                'Price' => '',
+                'Amt (BHD)' => ''
+            ]
+        ];
         $this->template->page_title('Quotations')->load('addquotation', $data);
     }
 
@@ -78,6 +95,12 @@ class Quotation extends CI_Controller {
         $data['quotation_no'] = $quotation_no;
 
         $this->template->page_title('Quotations')->load('quotation', $data);
+    }
+
+    public function editquotation($quotation_no){
+        $data['quotation_details'] = $this->Quotation_model->get_quotation_form_data($quotation_no);
+        $data['customers'] = $this->Users->get_customers();
+        $this->template->page_title('Quotations')->load('addquotation', $data);
     }
     
 }

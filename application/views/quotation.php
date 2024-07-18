@@ -1,119 +1,119 @@
 
     <style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-}
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+    }
 
-.text-right {
-    text-align: right;
-}
+    .text-right {
+        text-align: right;
+    }
 
-.bold {
-    font-weight: bold;
-}
+    .bold {
+        font-weight: bold;
+    }
 
-.container {
-    width: 80%;
-    margin: auto;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
+    .container {
+        width: 80%;
+        margin: auto;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
 
-h1, h2, h3, p {
-    margin: 0;
-}
+    h1, h2, h3, p {
+        margin: 0;
+    }
 
-h1 {
-    margin-bottom: 10px;
-}
+    h1 {
+        margin-bottom: 10px;
+    }
 
-.table-bordered {
-    border: 1px solid #ddd;
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 20px;
-}
+    .table-bordered {
+        border: 1px solid #ddd;
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+    }
 
-.table-bordered th, .table-bordered td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
+    .table-bordered th, .table-bordered td {
+        border: 1px solid #ddd;
+        padding: 5px;
+        text-align: center;
+    }
 
-.table-bordered th {
-    background-color: #f4f4f4;
-}
+    .table-bordered th {
+        background-color: #f4f4f4;
+    }
 
-.invoice-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    .invoice-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-.invoice-header .company-details {
-    text-align: left;
-}
+    .invoice-header .company-details {
+        text-align: left;
+    }
 
-.invoice-header .invoice-details {
-    text-align: right;
-}
+    .invoice-header .invoice-details {
+        text-align: right;
+    }
 
-.company-details p, .invoice-details p {
-    margin: 5px 0;
-}
+    .company-details p, .invoice-details p {
+        margin: 5px 0;
+    }
 
-.myfooter {
-    margin-top: 30px;
-    text-align: center;
-    font-size: 0.9em;
-    color: #777;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-}
+    .myfooter {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 0.9em;
+        color: #777;
+        border-top: 1px solid #ddd;
+        padding-top: 10px;
+    }
 
-.text-right {
-    text-align: right;
-}
+    .text-right {
+        text-align: right;
+    }
 
-.text-center {
-    text-align: center;
-}
+    .text-center {
+        text-align: center;
+    }
 
-@page {
-    size: A4;
-    margin: 20mm;
-}
+    @page {
+        size: A4;
+        margin: 20mm;
+    }
 
-.contains {
-    width: 210mm;
-    height: 297mm;
-    margin: 0 auto;
-    padding: 10mm;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-    font-size: 10px;
-    position: relative;
-}
+    .contains {
+        width: 210mm;
+        height: 297mm;
+        margin: 0 auto;
+        padding: 10mm;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+        font-size: 10px;
+        position: relative;
+    }
 
-.container {
-    width: 100%;
-    height: 100%;
-    border: 1px solid #000;
-    padding: 5mm;
-    box-sizing: border-box;
-    background-color: #fff;
-    position: relative;
-}
+    .container {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #000;
+        padding: 5mm;
+        box-sizing: border-box;
+        background-color: #fff;
+        position: relative;
+    }
 
-.fixed-footer-content {
-    position: absolute;
-    bottom: 50px;
-    width: 90%;
-}
+    .fixed-footer-content {
+        position: absolute;
+        bottom: 50px;
+        width: 90%;
+    }
 
         .button-row {
         text-align: center;
@@ -173,7 +173,7 @@ h1 {
 
 <body>
 <div class="button-row">
-    <button class="btn-edit"><i class="fas fa-edit"></i> Edit</button>
+    <a class="btn-edit btn btn-primary" href='<?php echo base_url('editquotation/' . $quotation_no); ?>'><i class="fas fa-edit"></i> Edit</a>
     <button class="btn-send-mail"><i class="fas fa-envelope"></i> Send Mail</button>
     <div class="dropdown">
         <button class="dropdown-toggle"><i class="fas fa-file-alt"></i> PDF/Print</button>
@@ -196,8 +196,7 @@ h1 {
             <div class="invoice-details">
                 <h1>Quote</h1>
                 <p><span id="quote-number">#<?= $quotation_no ?></span></p>
-                <p>Balance Due</p>
-                <p class="bold">Balance Due: <span id="balance-due">BHD: 20</span></p>
+                <p class="bold">Balance Due: <span id="balance-due">BHD 20</span></p>
             </div>
         </div>
 
@@ -212,7 +211,6 @@ h1 {
                     </td>
                     <td style="width: 50%;" class="text-right">
                         <p>Date: <span id="invoice-date"><?= $quotation_details[0]['Date'] ?></span></p>
-                        <p>Due Date: <span id="due-date"><?= $quotation_details[0]['Due date'] ?></span></p>
                     </td>
                 </tr>
                 <tr>
@@ -268,7 +266,7 @@ h1 {
                         <li>Amount to be paid as Cheque / Bank Transfer</li>
                         <li>Quotation to be valid for 15 days from the date of Quotation</li>
                         <li>Quotation is subject to change upon verification of actual site requirements</li>
-                </ul>
+                    </ul>
                 </p>
             </p>
             <p><b>
@@ -331,7 +329,7 @@ h1 {
 
 .table-bordered th, .table-bordered td {
     border: 1px solid #ddd;
-    padding: 10px;
+    padding: 5px;
     text-align: center;
     font-size:12px;
 }
@@ -395,7 +393,6 @@ h1 {
 .container {
     width: 100%;
     height: 100%;
-    border: 1px solid #000;
     padding: 5mm;
     box-sizing: border-box;
     background-color: #fff;
