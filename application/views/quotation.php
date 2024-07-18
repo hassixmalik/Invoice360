@@ -1,93 +1,119 @@
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        .text-right {
-            text-align: right;
-        }
-        .bold {
-            font-weight: bold;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h1, h2, h3, p {
-            margin: 0;
-        }
-        h1 {
-            margin-bottom: 10px;
-        }
-        .table-bordered {
-            border: 1px solid #ddd;
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 20px;
-        }
-        .table-bordered th, .table-bordered td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-        .table-bordered th {
-            background-color: #f4f4f4;
-        }
-        .invoice-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .invoice-header .company-details {
-            text-align: left;
-        }
-        .invoice-header .invoice-details {
-            text-align: right;
-        }
-        .company-details p, .invoice-details p {
-            margin: 5px 0;
-        }
-        footer {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 0.9em;
-            color: #777;
-        }
-        .text-right {
-            text-align: right;
-        }
-        .text-center {
-            text-align: center;
-        }
-        @page {
-            size: A4;
-            margin: 20mm;
-        }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
 
-        .contains {
-            width: 210mm;
-            height: 297mm;
-            margin: 0 auto;
-            padding: 20mm;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-            font-size:10px;
-        }
+.text-right {
+    text-align: right;
+}
 
-        .container {
-            width: 100%;
-            height: 100%;
-            border: 1px solid #000;
-            padding: 10mm;
-            box-sizing: border-box;
-            background-color: #fff;
-        }
+.bold {
+    font-weight: bold;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1, h2, h3, p {
+    margin: 0;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+.table-bordered {
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.table-bordered th, .table-bordered td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.table-bordered th {
+    background-color: #f4f4f4;
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invoice-header .company-details {
+    text-align: left;
+}
+
+.invoice-header .invoice-details {
+    text-align: right;
+}
+
+.company-details p, .invoice-details p {
+    margin: 5px 0;
+}
+
+.myfooter {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0.9em;
+    color: #777;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+@page {
+    size: A4;
+    margin: 20mm;
+}
+
+.contains {
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto;
+    padding: 10mm;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    position: relative;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #000;
+    padding: 5mm;
+    box-sizing: border-box;
+    background-color: #fff;
+    position: relative;
+}
+
+.fixed-footer-content {
+    position: absolute;
+    bottom: 50px;
+    width: 90%;
+}
 
         .button-row {
         text-align: center;
@@ -139,6 +165,10 @@
     .dropdown-menu a:hover {
         background-color: #218838;
     }
+    .signature-img {
+        width: 130px;
+        
+    }
     </style>
 
 <body>
@@ -149,114 +179,246 @@
         <button class="dropdown-toggle"><i class="fas fa-file-alt"></i> PDF/Print</button>
         <div class="dropdown-menu">
             <a href="#"><i class="fas fa-file-pdf"></i> PDF</a>
-            <a href="#"><i class="fas fa-print" id="printBtn"></i> Print</a>
+            <a  id="printBtn"><i class="fas fa-print"></i> Print</a>
         </div>
     </div>
     <button class="btn-convert"><i class="fas fa-exchange-alt"></i> Convert to Invoice</button>
 </div>
-<div class="contains">
-<div class="container">
-    <div class="invoice-header">
-        <div class="company-details">
-            <p><strong>Naeem Machine Repairing CO W.L.L</strong></p>
-            <p>Kingdom of Bahrain</p>
-            <p><a href="mailto:naeem.machinerepairing@gmail.com">naeem.machinerepairing@gmail.com</a></p>
+<div class="contains" id='contentToPrint'>
+    <div class="container">
+        <div class="invoice-header">
+            <div class="company-details">
+                <p><strong>Naeem Machine Repairing CO W.L.L</strong></p>
+                <p>Kingdom of Bahrain</p>
+                <p><a href="mailto:naeem.machinerepairing@gmail.com">naeem.machinerepairing@gmail.com</a></p>
+            </div>
+            <div class="invoice-details">
+                <h1>Quote</h1>
+                <p><span id="quote-number">#<?= $quotation_no ?></span></p>
+                <p>Balance Due</p>
+                <p class="bold">Balance Due: <span id="balance-due">BHD: 20</span></p>
+            </div>
         </div>
-        <div class="invoice-details">
-            <h1>Quote</h1>
-            <p><span id="quote-number">#<?= $quotation_no ?></span></p>
-            <p>Balance Due</p>
-            <p class="bold">Balance Due: <span id="balance-due">BHD: 20</span></p>
-        </div>
-    </div>
 
-    <table style='width:100%'>
-        <tbody>
-            <tr>
-                <td style="width: 50%;">
-                    <p>Bill To</p>
-                    <p class="bold"><span id="customer-name"><?= $quotation_details[0]['Name'] ?></span></p>
-                    <p><span id="customer-address"><?= $quotation_details[0]['Address'] ?></span></p>
-                    <p><span id="customer-city"><?= $quotation_details[0]['City'] ?></span></p>
-                </td>
-                <td style="width: 50%;" class="text-right">
-                    <p>Date: <span id="invoice-date"><?= $quotation_details[0]['Date'] ?></span></p>
-                    <p>Due Date: <span id="due-date"><?= $quotation_details[0]['Due date'] ?></span></p>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <p>Subject: <span id="invoice-subject"><?= $quotation_details[0]['Subject'] ?></span></p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <table class="table-bordered">
-        <thead>
-            <tr>
-                <th>#</th>
-                <!-- <th>Services</th> -->
-                <th>Work Description</th>
-                <th>Area</th>
-                <th>Qty</th>
-                <th>Price</th>
-                <th>Amt. (BD)</th>
-            </tr>
-        </thead>
-        <tbody id="invoice-items">
-            <?php foreach($quotation_details as $index => $item): ?>
+        <table style='width:100%'>
+            <tbody>
                 <tr>
-                    <td><?= $index + 1 ?></td>
-                    <td><?= $item['Work description'] ?></td>
-                    <td><?= $item['Area'] ?></td>
-                    <td><?= $item['Quantity'] ?></td>
-                    <td><?= $item['Price'] ?></td>
-                    <td><?= $item['Amount'] ?></td>
+                    <td style="width: 50%;">
+                        <p>Bill To</p>
+                        <p class="bold"><span id="customer-name"><?= $quotation_details[0]['Name'] ?></span></p>
+                        <p><span id="customer-address"><?= $quotation_details[0]['Address'] ?></span></p>
+                        <p><span id="customer-city"><?= $quotation_details[0]['City'] ?></span></p>
+                    </td>
+                    <td style="width: 50%;" class="text-right">
+                        <p>Date: <span id="invoice-date"><?= $quotation_details[0]['Date'] ?></span></p>
+                        <p>Due Date: <span id="due-date"><?= $quotation_details[0]['Due date'] ?></span></p>
+                    </td>
                 </tr>
-            <?php endforeach; ?>
-            <tr>
-                <td colspan="6" class="text-right bold">Total Receivable</td>
-                <td><span id="total-receivable"><?= $quotation_details[0]['Subtotal'] ?></span></td>
-            </tr>
-        </tbody>
-    </table>
+                <tr>
+                    <td colspan="2">
+                        <p>Subject: <span id="invoice-subject"><?= $quotation_details[0]['Subject'] ?></span></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-    <p class="text-right">
-        Bank Details:<br>
-        IBAN: BH69BBKU00200006739065<br>
-        Cheque's Name: Naeem Machine
-    </p>
+        <table class="table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <!-- <th>Services</th> -->
+                    <th>Work Description</th>
+                    <th>Area</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Amt. (BD)</th>
+                </tr>
+            </thead>
+            <tbody id="invoice-items">
+                <?php foreach($quotation_details as $index => $item): ?>
+                    <tr>
+                        <td><?= $index + 1 ?></td>
+                        <td><?= $item['Work description'] ?></td>
+                        <td><?= $item['Area'] ?></td>
+                        <td><?= $item['Quantity'] ?></td>
+                        <td><?= $item['Price'] ?></td>
+                        <td><?= $item['Amount'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                <tr>
+                    <td colspan="5" class="text-right bold">Total Receivable</td>
+                    <td><span id="total-receivable"><?= $quotation_details[0]['Subtotal'] ?></span></td>
+                </tr>
+            </tbody>
+        </table>
 
-    <p>
-        Appreciate your interest to do business with NMR.
-    </p>
-    <p style='text-align: end;'><img src="assets\dist\img\signature.jpg" style='width:130px;' alt=""></p>
-    <footer>
-    C.R No: 132138-1 Building 2596B, Road 4450, Block 744, Al Ramli Kingdom of Bahrain<br>
-    Email: <a href="mailto:naeem.machinerepairing@gmail.com">naeem.machinerepairing@gmail.com</a> , Mob No: +973 35952200, +97366686786
-    </footer>
+        <div class="fixed-footer-content">
+            <p class="text-right">
+                Bank Details:<br>
+                IBAN: BH69BBKU00200006739065<br>
+                Cheque's Name: Naeem Machine
+            </p>
+            <p>
+                <b>Terms and Conditions:</b>
+                <p>
+                    <ul>
+                        <li>70 % advance prior to work after approval</li>
+                        <li>30% upon completion of work Cheque</li>
+                        <li>Amount to be paid as Cheque / Bank Transfer</li>
+                        <li>Quotation to be valid for 15 days from the date of Quotation</li>
+                        <li>Quotation is subject to change upon verification of actual site requirements</li>
+                </ul>
+                </p>
+            </p>
+            <p>
+            Thanks for Trusting in Naeem Machine Repairing Co.
+            For Naeem Machine Repairing Co W.L.L
+            </p>
+            <p style='text-align: end;'><img class="signature-img" src="<?php echo base_url('assets/dist/img/signature.jpg'); ?>" style='width:130px;' alt=""></p>
+        </div>
+        
+        <footer class='myfooter fixed-footer-content'>
+            C.R No: 132138-1 Building 2596B, Road 4450, Block 744, Al Ramli Kingdom of Bahrain<br>
+            Email: <a href="mailto:naeem.machinerepairing@gmail.com">naeem.machinerepairing@gmail.com</a> , Mob No: +973 35952200
+        </footer>
+    </div>
 </div>
 
-
-</div>
 </body>
 <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-
 <script>
 document.getElementById('printBtn').addEventListener('click', function () {
-    var element = document.getElementById('contentToPrint');
+    var content = document.getElementById('contentToPrint').innerHTML;
+    var printWindow = window.open('', '', 'height=842,width=595'); // A4 size in pixels
 
-    var opt = {
-        margin:       0.5,
-        filename:     'Quotation.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-    };
+    printWindow.document.write('<html><head><title>Print</title>');
+    printWindow.document.write('<style>');
+    printWindow.document.write(`
+        /* Include your in-page CSS here */
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    font-size:12px;
+}
 
-    // New Promise-based usage:
-    html2pdf().set(opt).from(element).save();
+.text-right {
+    text-align: right;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+
+h1, h2, h3, p {
+    margin: 0;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+.table-bordered {
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    font-size:12px;
+}
+
+.table-bordered th, .table-bordered td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    font-size:12px;
+}
+
+.table-bordered th {
+    background-color: #f4f4f4;
+    font-size:12px;
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invoice-header .company-details {
+    text-align: left;
+}
+
+.invoice-header .invoice-details {
+    text-align: right;
+}
+
+.company-details p, .invoice-details p {
+    margin: 5px 0;
+}
+
+.myfooter {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0.9em;
+    color: #777;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+@page {
+    size: A4;
+    margin: 20mm;
+}
+
+.contains {
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto;
+    padding: 10mm;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    position: relative;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #000;
+    padding: 5mm;
+    box-sizing: border-box;
+    background-color: #fff;
+    position: relative;
+}
+
+.fixed-footer-content {
+    position: absolute;
+    bottom: 50px;
+    width: 90%;
+}
+
+        .signature-img {
+            width: 130px;
+            
+        }
+    `);
+    printWindow.document.write('</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(content);
+    printWindow.document.write('</body></html>');
+    
+    printWindow.document.close();
+    printWindow.print();
 });
 </script>
+
