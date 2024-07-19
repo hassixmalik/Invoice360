@@ -34,3 +34,5 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 ## environment
 application/.env
 application/vendor/*
+
+application/controllers/EmailControler.phpapplication/controllers/EmailControler.php
