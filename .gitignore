@@ -35,4 +35,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 application/.env
 application/vendor/*
 
-application/controllers/EmailControler.phpapplication/controllers/EmailControler.php
+application/controllers/EmailControler.php
