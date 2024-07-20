@@ -9,12 +9,12 @@ class Quotation extends CI_Controller {
 	  $this->load->model('Users');
 	}
     public function index(){
-        $this->template->page_title('Quotations')->load('quotation');
+        $this->template->page_title('Quotation')->load('quotation');
     }
 
     public function quotationspage(){
         $data['quotations'] = $this->Quotation_model->get_quotations();
-        $this->template->page_title('Quotations')->load('quotationspage', $data);
+        $this->template->page_title('All Quotations')->load('quotationspage', $data);
     }
 
     public function addquotation(){
@@ -36,7 +36,7 @@ class Quotation extends CI_Controller {
                 'Amt (BHD)' => ''
             ]
         ];
-        $this->template->page_title('Quotations')->load('addquotation', $data);
+        $this->template->page_title('Save Quotations')->load('addquotation', $data);
     }
 
     public function save_quotation() {

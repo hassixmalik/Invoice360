@@ -102,7 +102,6 @@
     .container {
         width: 100%;
         height: 100%;
-        border: 1px solid #000;
         padding: 5mm;
         box-sizing: border-box;
         background-color: #fff;
@@ -252,23 +251,33 @@
         </table>
 
         <div class="fixed-footer-content">
-            <p class="text-right">
-                Bank Details:<br>
-                IBAN: BH69BBKU00200006739065<br>
-                Cheque's Name: Naeem Machine
-            </p>
-            <p>
-                <b>Terms and Conditions:</b>
-                <p>
-                    <ul>
-                        <li>70 % advance prior to work after approval</li>
-                        <li>30% upon completion of work Cheque</li>
-                        <li>Amount to be paid as Cheque / Bank Transfer</li>
-                        <li>Quotation to be valid for 15 days from the date of Quotation</li>
-                        <li>Quotation is subject to change upon verification of actual site requirements</li>
-                    </ul>
-                </p>
-            </p>
+            <table style="width:100%">
+                <tbody>
+                    <tr>
+                        <td style="width:50%">
+                            <p>
+                                <b>Terms and Conditions:</b>
+                                <p>
+                                    <ul>
+                                        <li>70 % advance prior to work after approval</li>
+                                        <li>30% upon completion of work Cheque</li>
+                                        <li>Amount to be paid as Cheque / Bank Transfer</li>
+                                        <li>Quotation to be valid for 15 days from the date of Quotation</li>
+                                        <li>Quotation is subject to change upon verification of actual site requirements</li>
+                                    </ul>
+                                </p>
+                            </p>
+                        </td>
+                        <td style="width:50%">
+                            <p class="text-right">
+                                Bank Details:<br>
+                                IBAN: BH69BBKU00200006739065<br>
+                                Cheque's Name: Naeem Machine
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <p><b>
             Thanks for Trusting in Naeem Machine Repairing Co.
             For Naeem Machine Repairing Co W.L.L
