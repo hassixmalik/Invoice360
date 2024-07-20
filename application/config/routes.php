@@ -61,6 +61,9 @@ $route['save_quotation'] = 'quotation/save_quotation';
 $route['viewquotation/(:num)'] = 'quotation/viewquotation/$1';
 $route['editquotation/(:num)'] = 'quotation/editquotation/$1';
 
+$route['invoicespage'] = 'invoice/invoicepage';
+$route['addinvoice'] = 'invoice/addinvoice';
+
 
 $route['404_override'] = 'errors/Custom404';
 $route['translate_uri_dashes'] = FALSE;

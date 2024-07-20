@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quotations</title>
+    <title>invoices</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         .table th, .table td {
@@ -27,7 +27,7 @@
         <div class="container mt-1">
             <div class="d-flex justify-content-end align-items-center mb-3">
                 <div class="">
-                    <a href="<?php echo base_url('addquotation') ?>" class="btn btn-primary" aria-haspopup="true" aria-expanded="false">
+                    <a href="<?php echo base_url('addinvoice') ?>" class="btn btn-primary" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-plus"></i> New
                     </a>
                 </div>
@@ -37,11 +37,13 @@
                 <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Quote Number</th>
-                        <th>Reference Number</th>
+                        <th>Invoice Number</th>
+                        <th>Order Number</th>
                         <th>Customer Name</th>
                         <th>Status</th>
+                        <th>Due Date</th>
                         <th>Amount</th>
+                        <th>Balance Due</th>
                         <th>
                             <button class="search-icon-btn">
                                 <i class="fas fa-search"></i> Search
@@ -50,21 +52,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (!empty($quotations)): ?>
-                        <?php foreach ($quotations as $quotation): ?>
+                    <?php if (!empty($invoices)): ?>
+                        <?php foreach ($invoices as $invoice): ?>
                             <tr>
-                                <td><?php echo $quotation['quote_date']; ?></td>
-                                <td><?php echo $quotation['quotation_no']; ?></td>
-                                <td><?php echo $quotation['reference_no']; ?></td>
-                                <td><?php echo $quotation['customer_name']; ?></td>
-                                <td><?php echo $quotation['status']; ?></td>
-                                <td><?php echo $quotation['amount']; ?></td>
-                                <td><a href="<?php echo base_url('viewquotation/' . $quotation['quotation_no']); ?>"><i class="fas fa-eye"> &nbsp; view</i></a></td>
+                                <td><?php echo $invoice['invoice_date']; ?></td>
+                                <td><?php echo $invoice['invoice_no']; ?></td>
+                                <td><?php echo $invoice['order_no']; ?></td>
+                                <td><?php echo $invoice['customer_name']; ?></td>
+                                <td><?php echo $invoice['status']; ?></td>
+                                <td><?php echo $invoice['expiry_date']; ?></td>
+                                <td><?php echo $invoice['amount']; ?></td>
+                                <td><?php echo $invoice['payment_due']; ?></td>
+                                <td><a href="<?php echo base_url('viewinvoice/' . $invoice['invoice_no']); ?>"><i class="fas fa-eye"> &nbsp; view</i></a></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="7" class="text-center">No quotations found</td>
+                            <td colspan="7" class="text-center">No invoices found</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
