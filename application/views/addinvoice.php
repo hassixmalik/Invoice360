@@ -80,12 +80,17 @@
         <input type="text" id="invoiceNo" name="invoice_no" value="<?php echo $invoice_details[0]['invoice No']; ?>" required>
 
         <label for="referenceNo">Order No</label>
-        <select id="referenceNo" name="reference_no">
+        <?php if (!empty($quotation_no)) { ?>
+            <input type="text" id="quotenum" name="reference_no" value="<?php echo $quotation_no; ?>" disabled>
+        <?php }else { ?> 
+            <select id="referenceNo" name="reference_no">
             <?php foreach ($quote_numbers as $quote): ?>
                 <option value="<?php echo $quote['quotation_no']; ?>"><?php echo $quote['quotation_no']; ?></option>
             <?php endforeach; ?>
             <option value="">None</option>
-        </select>
+            </select>
+        <?php }?>
+
 
         <!-- <label for="invoiceDate">Invoice Date</label>
         <input type="date" id="invoiceDate" name="invoice_date" value="<?php //echo $invoice_details[0]['invoice Date']; ?>" required> -->

@@ -179,25 +179,12 @@ class Quotation extends CI_Controller {
 
     public function convert_to_invoice($quotation_no){
         $data['customers'] = $this->Users->get_customers();
-		$data['quote_numbers'] = $quotation_no;
+        $data['invoice_details'] = $this->Quotation_model->get_quotation_form_data($quotation_no);
+		$data['quotation_no'] = $quotation_no;
 		
-        $data['invoice_details'] = [
-            [
-                'customer_unique_id' => '',
-                'invoice No' => '',
-                'Reference No' => '',
-                'invoice Date' => '',
-                'Expiry Date' => '',
-                'Salesperson' => '',
-                'Project Name' => '',
-                'Subject' => '',
-                'Services Description' => '',
-                'Area' => '',
-                'Qty' => '',
-                'Price' => '',
-                'Amt (BHD)' => ''
-            ]
-        ];
+        $data['invoice_details'][0]['invoice No'] = '';
+        $data['invoice_details'][0]['Reference No'] = '';
+
         $this->template->page_title('Convert to Invoice')->load('addinvoice', $data);
     }
 }
