@@ -36,4 +36,100 @@ class Invoice_model extends MY_Model {
     public function save_invoice_terms($terms_data) {
         $this->db->insert('terms_and_conditions', $terms_data);
     }
+
+    public function get_invoice_details($invoice_no) {
+        $this->db->select('
+            dp.due_date AS `Due date`,
+            nc.customer_name AS `Name`,
+            ba.address AS `Address`,
+            ba.city AS `City`,
+            q.subject AS `Subject`,
+            i.service_description AS `Work description`,
+            i.area AS `Area`,
+            i.qty AS `Quantity`,
+            i.price AS `Price`,
+            i.amt AS `Amount`,
+            i.sub_total AS `Subtotal`
+        ');
+        $this->db->from('invoices q');
+        $this->db->join('new_customer nc', 'q.customer_unique_id = nc.customer_unique_id');
+        $this->db->join('billing_address ba', 'nc.customer_unique_id = ba.customer_unique_id');
+        $this->db->join('items i', 'q.invoice_id = i.invoice_id');
+        $this->db->join('due_payments dp', 'q.invoice_id = dp.invoice_id', 'left');
+        $this->db->where('q.invoice_no', $invoice_no);
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+
+
+    public function get_invoice_form_data($invoice_no) {
+        $this->db->select('
+            nc.customer_name AS `Customer Name`,
+            q.invoice_no AS `invoice No`,
+            q.order_no AS `Reference No`,
+            q.invoice_date AS `Invoice Date`,
+            q.expiry_date AS `Expiry Date`,
+            q.salesperson AS `Salesperson`,
+            q.project_name AS `Project Name`,
+            q.subject AS `Subject`,
+            i.service_description AS `Services Description`,
+            i.area AS `Area`,
+            i.qty AS `Qty`,
+            i.price AS `Price`,
+            i.amt AS `Amt (BHD)`
+        ');
+        $this->db->from('invoices q');
+        $this->db->join('new_customer nc', 'q.customer_unique_id = nc.customer_unique_id');
+        $this->db->join('billing_address ba', 'nc.customer_unique_id = ba.customer_unique_id', 'left');
+        $this->db->join('items i', 'q.invoice_id = i.invoice_id');
+        //$this->db->join('due_payments dp', 'q.invoice_id = dp.invoice_id', 'left');
+        $this->db->where('q.invoice_no', $invoice_no);
+    
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    
+
+    public function invoice_exists($invoice_no) {
+        $this->db->select('invoice_id');
+        $this->db->from('invoices');
+        $this->db->where('invoice_no', $invoice_no);
+        $query = $this->db->get();
+    
+        return $query->num_rows() > 0;
+    }
+
+    public function update_invoice($invoice_no, $data, $items) {
+        // Get the invoice_id using the invoice_no
+        $this->db->select('invoice_id');
+        $this->db->from('invoices');
+        $this->db->where('invoice_no', $invoice_no);
+        $query = $this->db->get();
+        $result = $query->row();
+        
+        if (!$result) {
+            return false; // Invoice not found
+        }
+
+        $invoice_id = $result->invoice_id;
+
+        // Update the invoice table
+        $this->db->where('invoice_no', $invoice_no);
+        $this->db->update('invoices', $data);
+
+        // Delete existing items for the invoice
+        $this->db->where('invoice_id', $invoice_id);
+        $this->db->delete('items');
+
+        // Insert updated items
+        foreach ($items as $item) {
+            $item['invoice_id'] = $invoice_id;
+            $this->db->insert('items', $item);
+        }
+
+        return true;
+    }
+
 }

@@ -49,21 +49,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+
+//login routes
 $route['default_controller'] = 'login';
 $route['authenticate'] = 'login/authenticate';
+
+//customer routes
 $route['customers'] = 'customers';
 $route['addcustomer'] = 'customers/addcustomer';
 $route['savecustomerform'] = 'customers/savecustomerform';
+
+//quotation routes
 $route['quotation'] = 'quotation';
 $route['quotationspage'] = 'quotation/quotationspage';
 $route['addquotation'] = 'quotation/addquotation';
 $route['save_quotation'] = 'quotation/save_quotation';
 $route['viewquotation/(:num)'] = 'quotation/viewquotation/$1';
 $route['editquotation/(:num)'] = 'quotation/editquotation/$1';
+$route['convert/(:num)'] = 'quotation/convert_to_invoice/$1';
 
-$route['invoicespage'] = 'invoice/invoicepage';
+//Invoice Routes
+$route['invoicespage'] = 'invoice';
 $route['addinvoice'] = 'invoice/addinvoice';
+$route['viewinvoice/(:num)'] = 'invoice/viewinvoice/$1';
+$route['editinvoice/(:num)'] = 'invoice/editinvoice/$1';
 
-
+//error routes
 $route['404_override'] = 'errors/Custom404';
 $route['translate_uri_dashes'] = FALSE;

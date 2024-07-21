@@ -181,7 +181,7 @@
             <a  id="printBtn"><i class="fas fa-print"></i> Print</a>
         </div>
     </div>
-    <button class="btn-convert"><i class="fas fa-exchange-alt"></i> Convert to Invoice</button>
+    <a class="btn-convert btn btn-secondary" href='<?php echo base_url('convert/' . $quotation_no); ?>'><i class="fas fa-exchange-alt"></i> Convert to Invoice</a>
 </div>
 <div class="contains" id='contentToPrint'>
     <div class="container">
@@ -193,7 +193,7 @@
                 <p><a href="mailto:naeem.machinerepairing@gmail.com">naeem.machinerepairing@gmail.com</a></p>
             </div>
             <div class="invoice-details">
-                <h1>Quote</h1>
+                <h1>QUOTE</h1>
                 <p><span id="quote-number">#<?= $quotation_no ?></span></p>
                 <p class="bold">Balance Due: <span id="balance-due">BHD 20</span></p>
             </div>

@@ -84,6 +84,7 @@
             <?php foreach ($quote_numbers as $quote): ?>
                 <option value="<?php echo $quote['quotation_no']; ?>"><?php echo $quote['quotation_no']; ?></option>
             <?php endforeach; ?>
+            <option value="">None</option>
         </select>
 
         <!-- <label for="invoiceDate">Invoice Date</label>
@@ -126,8 +127,8 @@
         </table>
         <button type="button" class="btn btn-light" onclick="addRow()">Add New Row</button>
 
-        <h2>Terms and Conditions</h2>
-        <textarea id="terms" name="terms" rows="4" required value='hasdasdasdasdas'></textarea>
+        <!-- <h2>Terms and Conditions</h2>
+        <textarea id="terms" name="terms" rows="4" required value='hasdasdasdasdas'></textarea> -->
 
         <div class="text-right">
             <button type="submit" class="submit btn">Save</button>
