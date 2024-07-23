@@ -193,5 +193,22 @@ class Invoice extends CI_Controller {
             redirect('errors\Custom404.php');
         }
     }
+    public function save_payment() {
+        $data = array(
+            //'customer_name' => $this->input->post('customer_name'),
+            'payment_id' => $this->input->post('payment_no'),
+            'payment_date' => $this->input->post('payment_date'),
+            'amount_received' => $this->input->post('amount_received'),
+            'notes' => $this->input->post('notes'),
+            'invoice_no' => $this->input->post('invoice_no')
+        );
+        $result = $this->Invoice_model->save_payment($data);
+    
+        if ($result) {
+            echo json_encode(array('status' => 'success', 'message' => 'Payment saved successfully.'));
+        } else {
+            echo json_encode(array('status' => 'error', 'message' => 'Failed to save payment.'));
+        }
+    }
     
 }

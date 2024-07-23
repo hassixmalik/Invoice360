@@ -39,7 +39,7 @@ class Invoice_model extends MY_Model {
 
     public function get_invoice_details($invoice_no) {
         $this->db->select('
-            dp.due_date AS `Due date`,
+            q.expiry_date AS `Due date`,
             nc.customer_name AS `Name`,
             ba.address AS `Address`,
             ba.city AS `City`,
@@ -55,7 +55,7 @@ class Invoice_model extends MY_Model {
         $this->db->join('new_customer nc', 'q.customer_unique_id = nc.customer_unique_id');
         $this->db->join('billing_address ba', 'nc.customer_unique_id = ba.customer_unique_id');
         $this->db->join('items i', 'q.invoice_id = i.invoice_id');
-        $this->db->join('due_payments dp', 'q.invoice_id = dp.invoice_id', 'left');
+        //$this->db->join('due_payments dp', 'q.invoice_id = dp.invoice_id', 'left');
         $this->db->where('q.invoice_no', $invoice_no);
 
         $query = $this->db->get();
@@ -188,5 +188,10 @@ class Invoice_model extends MY_Model {
         $this->db->where('quotation_no', $quotation_no);
         return $this->db->update('quotations');
     }
+
+    public function save_payment($data) {
+        return $this->db->insert('payments', $data);
+    }
+    
 
 }

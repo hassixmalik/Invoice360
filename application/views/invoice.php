@@ -177,11 +177,11 @@
     <div class="dropdown">
         <button class="dropdown-toggle"><i class="fas fa-file-alt"></i> PDF/Print</button>
         <div class="dropdown-menu">
-            <a href="#"><i class="fas fa-file-pdf"></i> PDF</a>
+            <a><i class="fas fa-file-pdf" id='savePdfBtn'></i> PDF</a>
             <a  id="printBtn"><i class="fas fa-print"></i> Print</a>
         </div>
     </div>
-    <button class="btn-convert"><i class=""></i>💵 Record Payment</button>
+    <button class="btn-convert btn btn-primary" data-toggle="modal" data-target="#paymentModal"><i class=""></i>💵 Record Payment</button>
 </div>
 <div class="contains" id='contentToPrint'>
     <div class="container">
@@ -279,9 +279,101 @@
     </div>
 </div>
 
+
+<!-- The Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="paymentModalLabel">Add Payment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="paymentForm">
+          <div class="form-group">
+            <label for="customerName">Customer Name</label>
+            <input type="text" class="form-control" id="customerName" name="customer_name" value='<?= $invoice_details[0]['Name'] ?>'>
+          </div>
+          <div class="form-group">
+            <label for="payment_no">Payment Number</label>
+            <input type="text" class="form-control" id="paymentNo" name="payment_no" value="<?php echo substr(md5(uniqid(mt_rand(), true)), 0, 4); ?>" readonly>
+          </div>
+          <div class="form-group">
+            <label for="dueDate">Due Date</label>
+            <input type="date" class="form-control" id="dueDate" name="due_date" value='<?= $invoice_details[0]['Due date'] ?>' required>
+          </div>
+          <div class="form-group">
+            <label for="amountReceived">Amount Received</label>
+            <input type="number" class="form-control" id="amountReceived" name="amount_received" required>
+          </div>
+          <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea class="form-control" id="notes" name="notes"></textarea>
+          </div>
+          <input type="hidden" id="invoiceNo" name="invoice_no" value="<?= $invoice_no ?>">
+          <div class="form-group">
+            <label for="paymentDate">Payment Date</label>
+            <input type="date" class="form-control" id="paymentDate" name="payment_date" value="<?php echo date('Y-m-d'); ?>">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
 <script>
+        document.getElementById('savePdfBtn').addEventListener('click', function () {
+        var element = document.getElementById('contentToPrint');
+        var opt = {
+            //margin: 0.5,
+            filename: 'invoice.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'A4', orientation: 'portrait' }
+        };
+
+        html2pdf().from(element).set(opt).save();
+    });
+    $('#paymentForm').on('submit', function(e) {
+        e.preventDefault();
+
+        if (this.checkValidity()) {
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url("invoice/save_payment"); ?>',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        alert(response.message);
+                        // Optionally, you can reset the form or perform other actions
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function() {
+                    alert('An error occurred while saving the payment.');
+                }
+            });
+        } else {
+            console.log('Form is invalid.');
+        }
+    });
+</script>
+<script>
+
 document.getElementById('printBtn').addEventListener('click', function () {
     var content = document.getElementById('contentToPrint').innerHTML;
     var printWindow = window.open('', '', 'height=842,width=595'); // A4 size in pixels

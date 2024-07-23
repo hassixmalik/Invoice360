@@ -76,6 +76,7 @@ $route['addinvoice'] = 'invoice/addinvoice';
 $route['viewinvoice/(:num)'] = 'invoice/viewinvoice/$1';
 $route['editinvoice/(:num)'] = 'invoice/editinvoice/$1';
 $route['deleteinvoice/(:num)'] = 'invoice/deleteinvoice/$1';
+$route['save_payment'] = 'invoice/save_payment';
 
 //error routes
 $route['404_override'] = 'errors/Custom404';
