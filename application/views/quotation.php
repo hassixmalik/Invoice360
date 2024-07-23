@@ -193,9 +193,9 @@
                 <p><a href="mailto:naeem.machinerepairing@gmail.com">naeem.machinerepairing@gmail.com</a></p>
             </div>
             <div class="invoice-details">
-                <h1 style='color:blue'>QUOTE</h1>
+                <h1 style='color:blue'>Quotation</h1>
                 <p><span id="quote-number">#<?= $quotation_no ?></span></p>
-                <p class="bold">Balance Due: <span id="balance-due">BHD 20</span></p>
+                <p class="bold"> <span id="balance-due"></span></p>
             </div>
         </div>
 
@@ -247,7 +247,9 @@
                     <td colspan="5" class="text-right bold">Total Receivable</td>
                     <td><span id="total-receivable"><?= $quotation_details[0]['Subtotal'] ?></span></td>
                 </tr>
+
             </tbody>
+            
         </table>
 
         <div class="fixed-footer-content">
@@ -279,9 +281,9 @@
                 </tbody>
             </table>
             <p><b>
-            Thanks for Trusting in Naeem Machine Repairing Co.
-            For Naeem Machine Repairing Co W.L.L
-            </b></p>
+            Thanks for Trusting in Naeem Machine Repairing Co.</p>
+            <p>For Naeem Machine Repairing Co W.L.L</p>
+            </b>
             <p style='text-align: end;'><img class="signature-img" src="<?php echo base_url('assets/dist/img/signature.jpg'); ?>" style='width:130px;' alt=""></p>
         </div>
         
