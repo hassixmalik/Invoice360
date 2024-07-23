@@ -187,4 +187,17 @@ class Quotation extends CI_Controller {
 
         $this->template->page_title('Convert to Invoice')->load('addinvoice', $data);
     }
+
+    public function deletequotation($quotation_no){
+        $result = $this->Quotation_model->delete_quotation_and_items($quotation_no);
+    
+        if($result) {
+            // Successfully deleted
+            redirect('quotation/quotationspage'); // Adjust this to your actual redirect page
+        } else {
+            // Deletion failed
+            echo "Failed to delete the quotation.";
+        }
+    }
+    
 }

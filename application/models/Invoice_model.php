@@ -125,12 +125,68 @@ class Invoice_model extends MY_Model {
 
         // Insert updated items
         foreach ($items as $item) {
-            unset($item['quotation_id']);
+            //unset($item['quotation_id']);
             $item['invoice_id'] = $invoice_id;
             $this->db->insert('items', $item);
         }
 
         return true;
+    }
+
+
+    public function delete_invoice_and_items($invoice_no) {
+        // Start a transaction to ensure both deletions succeed
+        $this->db->trans_start();
+    
+        // Get the invoice_id based on the invoice_no
+        $this->db->select('invoice_id');
+        $this->db->from('invoices');
+        $this->db->where('invoice_no', $invoice_no);
+        $invoice = $this->db->get()->row();
+    
+        if ($invoice) {
+            $invoice_id = $invoice->invoice_id;
+    
+            // Delete items associated with the invoice
+            $this->db->where('invoice_id', $invoice_id);
+            $this->db->delete('items');
+    
+             // Delete payments associated with the invoice
+            $this->db->where('invoice_id', $invoice_id);
+            $this->db->delete('payments');
+
+            // Delete due payments associated with the invoice
+            $this->db->where('invoice_id', $invoice_id);
+            $this->db->delete('due_payments');
+            
+            // Delete the invoice
+            $this->db->where('invoice_no', $invoice_no);
+            $this->db->delete('invoices');
+        }
+    
+        // Complete the transaction
+        $this->db->trans_complete();
+    
+        // Check if the transaction was successful
+        if ($this->db->trans_status() === FALSE) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+    
+    // Update the status of an invoice to 'Invoiced'
+    public function update_invoice_status($invoice_no) {
+        $this->db->set('status', 'Invoiced');
+        $this->db->where('invoice_no', $invoice_no);
+        return $this->db->update('invoices');
+    }
+    
+    // Update the status of a quotation to 'Invoiced'
+    public function update_quotation_status($quotation_no) {
+        $this->db->set('status', 'Invoiced');
+        $this->db->where('quotation_no', $quotation_no);
+        return $this->db->update('quotations');
     }
 
 }

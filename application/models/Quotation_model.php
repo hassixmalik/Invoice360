@@ -129,5 +129,50 @@ class Quotation_model extends MY_Model {
         }
     }
     
+    public function delete_quotation_and_items($quotation_no) {
+        // Start a transaction to ensure all deletions succeed
+        $this->db->trans_start();
+    
+        // Get the quotation_id based on the quotation_no
+        $this->db->select('quotation_id');
+        $this->db->from('quotations');
+        $this->db->where('quotation_no', $quotation_no);
+        $quotation = $this->db->get()->row();
+    
+        if ($quotation) {
+            $quotation_id = $quotation->quotation_id;
+    
+            // Delete items associated with the quotation
+            $this->db->where('quotation_id', $quotation_id);
+            $this->db->delete('items');
+    
+            // Delete terms and conditions associated with the quotation
+            $this->db->where('quotation_id', $quotation_id);
+            $this->db->delete('terms_and_conditions');
+            
+            // Delete payments associated with the quotation
+            $this->db->where('quotation_id', $quotation_id);
+            $this->db->delete('payments');
+
+            // Delete due payments associated with the quotation
+            $this->db->where('quotation_id', $quotation_id);
+            $this->db->delete('due_payments');
+    
+            // Delete the quotation
+            $this->db->where('quotation_no', $quotation_no);
+            $this->db->delete('quotations');
+        }
+    
+        // Complete the transaction
+        $this->db->trans_complete();
+    
+        // Check if the transaction was successful
+        if ($this->db->trans_status() === FALSE) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+    
     
 }

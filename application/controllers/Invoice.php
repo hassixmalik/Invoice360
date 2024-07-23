@@ -125,6 +125,11 @@ class Invoice extends CI_Controller {
         $is_update = $this->Invoice_model->invoice_exists($invoice_no);
         $quotation_no=$this->input->post('reference_no');
         $quotation_id=$this->Quotation_model->get_quotation_id_by_no($quotation_no);
+        $quotation_array = array_fill(0, 10, $quotation_id ? $quotation_id : NULL);
+
+        //updating statuses into 'Invoiced'
+        $this->Invoice_model->update_quotation_status($quotation_no);
+        
         // Prepare invoice data
         $data = array(
             'customer_unique_id' => $this->input->post('customer_name'),
@@ -154,7 +159,7 @@ class Invoice extends CI_Controller {
     
         for ($i = 0; $i < count($service_descriptions); $i++) {
             $items[] = array(
-                'quotation_id' => $quotation_id,
+                'quotation_id' => $quotation_array[$i],
                 'service_description' => $service_descriptions[$i],
                 'area' => $areas[$i],
                 'qty' => $qtys[$i],
@@ -167,11 +172,25 @@ class Invoice extends CI_Controller {
         if ($is_update) {
             // Update existing invoice
             $this->Invoice_model->update_invoice($invoice_no, $data, $items);
+            $this->Invoice_model->update_invoice_status($invoice_no);
             redirect('invoice/invoicespage');
         } else {
             // Save new invoice and items
             $invoice_id = $this->Invoice_model->save_invoice($data, $items);
+            $this->Invoice_model->update_invoice_status($invoice_no);
             redirect('invoice/invoicespage');
+        }
+    }
+
+    public function deleteinvoice($invoice_no){
+        $result = $this->Invoice_model->delete_invoice_and_items($invoice_no);
+
+        if ($result) {
+            $data['success']='Invoice Deleted Successfully';
+            $data['invoices'] = $this->Invoice_model->get_invoices();
+            $this->template->page_title('Invoices')->load('invoicepage', $data);
+        } else {
+            redirect('errors\Custom404.php');
         }
     }
     

@@ -53,6 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //login routes
 $route['default_controller'] = 'login';
 $route['authenticate'] = 'login/authenticate';
+$route['starter'] = 'starter/index';
 
 //customer routes
 $route['customers'] = 'customers';
@@ -66,6 +67,7 @@ $route['addquotation'] = 'quotation/addquotation';
 $route['save_quotation'] = 'quotation/save_quotation';
 $route['viewquotation/(:num)'] = 'quotation/viewquotation/$1';
 $route['editquotation/(:num)'] = 'quotation/editquotation/$1';
+$route['deletequotation/(:num)'] = 'quotation/deletequotation/$1';
 $route['convert/(:num)'] = 'quotation/convert_to_invoice/$1';
 
 //Invoice Routes
@@ -73,6 +75,7 @@ $route['invoicespage'] = 'invoice';
 $route['addinvoice'] = 'invoice/addinvoice';
 $route['viewinvoice/(:num)'] = 'invoice/viewinvoice/$1';
 $route['editinvoice/(:num)'] = 'invoice/editinvoice/$1';
+$route['deleteinvoice/(:num)'] = 'invoice/deleteinvoice/$1';
 
 //error routes
 $route['404_override'] = 'errors/Custom404';

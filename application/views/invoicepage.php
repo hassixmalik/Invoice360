@@ -46,9 +46,10 @@
                         <th>Balance Due</th>
                         <th>
                             <button class="search-icon-btn">
-                                <i class="fas fa-search"></i> Search
+                                <i class="fas fa-search"></i>
                             </button>
                         </th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,11 +60,12 @@
                                 <td><?php echo $invoice['invoice_no']; ?></td>
                                 <td><?php echo $invoice['order_no']; ?></td>
                                 <td><?php echo $invoice['customer_name']; ?></td>
-                                <td><?php echo $invoice['status']; ?></td>
+                                <td style="background-color: <?php echo $invoice['status'] == 'Draft' ? '#d3d3d3' : ($invoice['status'] == 'Invoiced' ? '#add8e6' : ''); ?>;"><?php echo $invoice['status']; ?></td>
                                 <td><?php echo $invoice['expiry_date']; ?></td>
                                 <td><?php echo $invoice['amount']; ?></td>
                                 <td><?php echo $invoice['payment_due']; ?></td>
-                                <td><a href="<?php echo base_url('viewinvoice/' . $invoice['invoice_no']); ?>"><i class="fas fa-eye"> &nbsp; view</i></a></td>
+                                <td><a href="<?php echo base_url('viewinvoice/' . $invoice['invoice_no']); ?>"><i class="fas fa-eye"></i></a></td>
+                                <td><a href="<?php echo base_url('deleteinvoice/' . $invoice['invoice_no']); ?>"><i class="fas fa-trash-alt" style="color: red;"></i></a></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>

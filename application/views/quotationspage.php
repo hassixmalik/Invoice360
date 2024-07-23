@@ -44,9 +44,10 @@
                         <th>Amount</th>
                         <th>
                             <button class="search-icon-btn">
-                                <i class="fas fa-search"></i> Search
+                                <i class="fas fa-search"></i>
                             </button>
                         </th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,9 +58,10 @@
                                 <td><?php echo $quotation['quotation_no']; ?></td>
                                 <td><?php echo $quotation['reference_no']; ?></td>
                                 <td><?php echo $quotation['customer_name']; ?></td>
-                                <td><?php echo $quotation['status']; ?></td>
+                                <td style="background-color: <?php echo $quotation['status'] == 'Draft' ? '#d3d3d3' : ($quotation['status'] == 'Invoiced' ? '#add8e6' : ''); ?>;"><?php echo $quotation['status']; ?></td>
                                 <td><?php echo $quotation['amount']; ?></td>
-                                <td><a href="<?php echo base_url('viewquotation/' . $quotation['quotation_no']); ?>"><i class="fas fa-eye"> &nbsp; view</i></a></td>
+                                <td><a href="<?php echo base_url('viewquotation/' . $quotation['quotation_no']); ?>"><i class="fas fa-eye"></i></a></td>
+                                <td><a href="<?php echo base_url('deletequotation/' . $quotation['quotation_no']); ?>"><i class="fas fa-trash-alt" style="color: red;"></i></a></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>

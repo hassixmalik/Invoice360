@@ -3,7 +3,7 @@
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
     <!-- Home -->
     <li class="nav-item">
-      <a href="#" class="nav-link">
+      <a href="<?php echo base_url('starter') ?>"  class="nav-link">
         <i class="nav-icon fas fa-home"></i>
         <p>Home</p>
       </a>
@@ -48,21 +48,21 @@
             <p>Recurring Invoices</p>
           </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Credit Notes</p>
           </a>
-        </li>
+        </li> -->
       </ul>
     </li>
-    <!-- Reports -->
+    <!-- Reports
     <li class="nav-item">
       <a href="#" class="nav-link">
         <i class="nav-icon fas fa-chart-bar"></i>
         <p>Reports</p>
       </a>
-    </li>
+    </li> -->
     <!-- Documents -->
     <li class="nav-item">
       <a href="#" class="nav-link">
