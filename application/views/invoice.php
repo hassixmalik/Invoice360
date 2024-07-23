@@ -193,7 +193,7 @@
                 <p><a href="mailto:naeem.machinerepairing@gmail.com">naeem.machinerepairing@gmail.com</a></p>
             </div>
             <div class="invoice-details">
-                <h1>INVOICE</h1>
+                <h1 style='color:blue'>INVOICE</h1>
                 <p><span id="quote-number">#<?= $invoice_no ?></span></p>
                 <p class="bold">Balance Due: <span id="balance-due">BHD 20</span></p>
             </div>

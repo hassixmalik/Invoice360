@@ -125,6 +125,7 @@ class Invoice_model extends MY_Model {
 
         // Insert updated items
         foreach ($items as $item) {
+            unset($item['quotation_id']);
             $item['invoice_id'] = $invoice_id;
             $this->db->insert('items', $item);
         }

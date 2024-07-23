@@ -81,7 +81,7 @@
 
         <label for="referenceNo">Order No</label>
         <?php if (!empty($quotation_no)) { ?>
-            <input type="text" id="quotenum" name="reference_no" value="<?php echo $quotation_no; ?>" disabled>
+            <input type="text" id="referenceNo" name="reference_no" value="<?php echo $quotation_no; ?>" disabled>
         <?php }else { ?> 
             <select id="referenceNo" name="reference_no">
             <?php foreach ($quote_numbers as $quote): ?>
