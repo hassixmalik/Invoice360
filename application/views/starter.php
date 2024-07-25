@@ -1,3 +1,45 @@
+<style>
+  /* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+thead th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+table caption {
+    caption-side: bottom;
+    font-size: 14px;
+    color: #777;
+}
+
+.no-records {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+}
+
+</style>
 <div class="row">
   <div class="col-lg-6">
     <div class="card card-primary card-outline">
@@ -29,4 +71,33 @@
       </div>
     </div>
   </div>
+</div>
+<div class="row">
+<h1>Get Statments:</h1>
+<table style='border:1' cellspacing="0" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Customer Name</th>
+            <th>Company Name</th>
+            <th>Receivables</th>
+            <th>View Statment</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (!empty($customers)) : ?>
+            <?php foreach ($customers as $customer) : ?>
+                <tr>
+                    <td><?php echo $customer['customer_name']; ?></td>
+                    <td><?php echo $customer['company_name']; ?></td>
+                    <td><?php echo $customer['recievables']; ?></td>
+                    <td><a href="<?php echo base_url('viewstatment/' . $customer['customer_unique_id']); ?>"><i class="fas fa-eye"></i></a></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else : ?>
+            <tr>
+                <td colspan="4">No records found.</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
 </div>

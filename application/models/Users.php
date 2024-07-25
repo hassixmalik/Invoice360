@@ -44,4 +44,22 @@
       $query = $this->db->get('new_customer');
       return $query->result_array();
     }
+
+    public function get_customers_with_unique_id() {
+      // Select the required fields from the 'new_customer' table
+      $this->db->select('customer_unique_id, customer_name, company_name, recievables');
+      $this->db->from('new_customer');
+      
+      // Execute the query
+      $query = $this->db->get();
+      
+      // Check if there are results
+      if ($query->num_rows() > 0) {
+          // Return the results as an associative array
+          return $query->result_array();
+      } else {
+          // Return an empty array if no records found
+          return [];
+      }
+  }
   }
