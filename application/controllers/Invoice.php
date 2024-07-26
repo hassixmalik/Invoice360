@@ -108,6 +108,7 @@ class Invoice extends CI_Controller {
         $data['invoice_details'] = $this->Invoice_model->get_invoice_details($invoice_no);
         $data['invoice_no'] = $invoice_no;
         $invoice_id=$this->Invoice_model->get_invoice_id_by_number($invoice_no);
+        $data['amount_due']=$this->Invoice_model->get_amount_due_by_invoice_id($invoice_id);
         
 
         $this->template->page_title('Invoice')->load('invoice', $data);
@@ -198,6 +199,28 @@ class Invoice extends CI_Controller {
     public function save_payment() {
         $invoice_no=$this->input->post('invoice_no');
         $invoice_id= $this->Invoice_model->get_invoice_id_by_number($invoice_no);
+        //i need to check if there exists any previous payments of invoice, if yes then it means i can
+        //not subtract amount_recieved from sub_total, it will cause a never endinng loop of payment
+        //which will keep payment to be there everytime
+        $sub_total=$this->input->post('sub_total');
+        $amount_received=$this->input->post('amount_received');
+        $remaining_balance=$this->Invoice_model->get_amount_due_by_invoice_id($invoice_id);
+        if($remaining_balance){
+            $remaining_balance= $remaining_balance  -   $amount_received;
+        }
+        else{$remaining_balance= $sub_total  -   $amount_received;
+        }
+
+        if($remaining_balance>0){
+            $data_remaining_balance = array(
+                'due_date' =>  $this->input->post('due_date'),
+                'amount_due' => $remaining_balance,
+                'status' => 'Pending',
+                'invoice_id' => $invoice_id
+            );
+            $this->Invoice_model->save_due_payment($data_remaining_balance);
+        }
+        
         $data = array(
             //'customer_name' => $this->input->post('customer_name'),
             'payment_id' => $this->input->post('payment_no'),
@@ -210,13 +233,16 @@ class Invoice extends CI_Controller {
         $result = $this->Invoice_model->save_payment($data);
     
         if ($result) {
-            echo json_encode(array('status' => 'success', 'message' => 'Payment saved successfully.'));
+            echo json_encode(array('status' => 'success', 'message' => 'Payment saved successfully. Refresh the Page to see Updated Info'));
         } else {
             echo json_encode(array('status' => 'error', 'message' => 'Failed to save payment.'));
         }
     }
     
     public function viewstatment($customer_unique_id){
-
+        $data['invoice_details'] = $this->Invoice_model->get_customer_invoices_details($customer_unique_id);
+        $data['customer_details'] = $this->Invoice_model->get_customer_details($customer_unique_id);
+        $data['customer_id'] = $customer_unique_id;
+        $this->template->page_title('View Statment')->load('statment', $data);
     }
 }

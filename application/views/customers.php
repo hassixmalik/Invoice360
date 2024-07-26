@@ -43,7 +43,7 @@
                                 <td><?php echo $customer['company_name']; ?></td>
                                 <td><?php echo $customer['customer_email']; ?></td>
                                 <td><?php echo $customer['customer_phone']; ?></td>
-                                <td><?php echo $customer['receivables']; ?></td>
+                                <td><?php echo $customer['recievables']; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>

@@ -1,5 +1,4 @@
-
-    <style>
+<style>
     body {
         font-family: Arial, sans-serif;
         margin: 0;
@@ -172,7 +171,7 @@
 
 <body>
 <div class="button-row">
-    <a class="btn-edit btn btn-primary" href='<?php echo base_url('editquotation/' . $quotation_no); ?>'><i class="fas fa-edit"></i> Edit</a>
+    <!-- <a class="btn-edit btn btn-primary" href=''><i class="fas fa-edit"></i> Edit</a> -->
     <button class="btn-send-mail"><i class="fas fa-envelope"></i> Send Mail</button>
     <div class="dropdown">
         <button class="dropdown-toggle"><i class="fas fa-file-alt"></i> PDF/Print</button>
@@ -181,7 +180,7 @@
             <a  id="printBtn"><i class="fas fa-print"></i> Print</a>
         </div>
     </div>
-    <a class="btn-convert btn btn-secondary" href='<?php echo base_url('convert/' . $quotation_no); ?>'><i class="fas fa-exchange-alt"></i> Convert to Invoice</a>
+    <!-- <a class="btn-convert btn btn-secondary" href=''><i class="fas fa-exchange-alt"></i> Convert to Invoice</a> -->
 </div>
 <div class="contains" id='contentToPrint'>
     <div class="container">
@@ -193,8 +192,8 @@
                 <p><a href="mailto:naeem.machinerepairing@gmail.com">naeem.machinerepairing@gmail.com</a></p>
             </div>
             <div class="invoice-details">
-                <h1 style='color:blue'>Quotation</h1>
-                <p><span id="quote-number">#<?= $quotation_no ?></span></p>
+                <h1 style='color:blue'>Statment</h1>
+                <p><span id="quote-number">#<?= $customer_id ?></span></p>
                 <p class="bold"> <span id="balance-due"></span></p>
             </div>
         </div>
@@ -203,83 +202,57 @@
             <tbody>
                 <tr>
                     <td style="width: 50%;">
-                        <p>Bill To</p>
-                        <p class="bold"><span id="customer-name"><?= $quotation_details[0]['Name'] ?></span></p>
-                        <p><span id="customer-address"><?= $quotation_details[0]['Address'] ?></span></p>
-                        <p><span id="customer-city"><?= $quotation_details[0]['City'] ?></span></p>
+                        <p>To</p>
+                        <p class="bold"><span id="customer-name"><?= $customer_details['customer_name'] ?></span></p>
+                        <p><span id="customer-address"><?= $customer_details['address'] ?></span></p>
+                        <p><span id="customer-city"><?= $customer_details['city'] ?></span></p>
                     </td>
                     <td style="width: 50%;" class="text-right">
-                        <p>Date: <span id="invoice-date"><?= $quotation_details[0]['Date'] ?></span></p>
+                        <p>Date: <span id="invoice-date"><?= date('Y-m-d') ?></span></p>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <p>Subject: <span id="invoice-subject"><?= $quotation_details[0]['Subject'] ?></span></p>
+                        <!-- <p>Subject: <span id="invoice-subject"></span></p> -->
                     </td>
                 </tr>
             </tbody>
         </table>
+
 
         <table class="table-bordered">
             <thead>
                 <tr>
                     <th>#</th>
-                    <!-- <th>Services</th> -->
-                    <th>Work Description</th>
-                    <th>Area</th>
-                    <th>Qty</th>
-                    <th>Price</th>
-                    <th>Amt. (BD)</th>
+                    <th>Invoice Date</th>
+                    <th>Invoice No</th>
+                    <th>Project/Resturent Name</th>
+                    <th>Amount Due (BHD)</th>
+                    <th>Amount Received (BHD)</th>
                 </tr>
             </thead>
             <tbody id="invoice-items">
-                <?php foreach($quotation_details as $index => $item): ?>
+                <?php $total=0;
+                      foreach($invoice_details as $index => $invoice): 
+                      $total = $total+$invoice['amount_due']; ?>
                     <tr>
                         <td><?= $index + 1 ?></td>
-                        <td><?= $item['Work description'] ?></td>
-                        <td><?= $item['Area'] ?></td>
-                        <td><?= $item['Quantity'] ?></td>
-                        <td><?= $item['Price'] ?></td>
-                        <td><?= $item['Amount'] ?></td>
+                        <td><?= $invoice['invoice_date'] ?></td>
+                        <td><?= $invoice['invoice_no'] ?></td>
+                        <td><?= $invoice['project_name'] ?></td>
+                        <td><?= $invoice['amount_due'] ?></td>
+                        <td><?= $invoice['amount_received'] ?></td>
                     </tr>
                 <?php endforeach; ?>
                 <tr>
-                    <td colspan="5" class="text-right bold">Total Receivable</td>
-                    <td><span id="total-receivable"><?= $quotation_details[0]['Subtotal'] ?></span></td>
+                    <td colspan="4" class="text-right bold">Total</td>
+                    <td><b><span id="total-receivable"><?= $total ?></span></b></td>
                 </tr>
-
             </tbody>
-            
         </table>
 
+
         <div class="fixed-footer-content">
-            <table style="width:100%">
-                <tbody>
-                    <tr>
-                        <td style="width:50%">
-                            <p>
-                                <b>Terms and Conditions:</b>
-                                <p>
-                                    <ul>
-                                        <li>70 % advance prior to work after approval</li>
-                                        <li>30% upon completion of work Cheque</li>
-                                        <li>Amount to be paid as Cheque / Bank Transfer</li>
-                                        <li>Quotation to be valid for 15 days from the date of Quotation</li>
-                                        <li>Quotation is subject to change upon verification of actual site requirements</li>
-                                    </ul>
-                                </p>
-                            </p>
-                        </td>
-                        <td style="width:50%">
-                            <p class="text-right">
-                                Bank Details:<br>
-                                IBAN: BH69BBKU00200006739065<br>
-                                Cheque's Name: Naeem Machine
-                            </p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
             <p><b>
             Thanks for Trusting in Naeem Machine Repairing Co.</p>
             <p>For Naeem Machine Repairing Co W.L.L</p>
@@ -297,7 +270,7 @@
 </body>
 <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
 <script>
-            document.getElementById('savePdfBtn').addEventListener('click', function () {
+        document.getElementById('savePdfBtn').addEventListener('click', function () {
         var element = document.getElementById('contentToPrint');
         var opt = {
             //margin: 0.5,

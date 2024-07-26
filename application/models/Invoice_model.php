@@ -207,8 +207,123 @@ class Invoice_model extends MY_Model {
     }
     
     public function save_payment($data) {
-        return $this->db->insert('payments', $data);
+        $invoice_id = $data['invoice_id'];
+        $new_amount_received = $data['amount_received'];
+
+        // Check if the invoice_id exists in the payments table
+        $this->db->select('payment_id, amount_received');
+        $this->db->from('payments');
+        $this->db->where('invoice_id', $invoice_id);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            // Invoice ID exists, update the record
+            $payment_id = $query->row()->payment_id;
+            $existing_amount_received = $query->row()->amount_received;
+
+            // Calculate the new total amount received
+            $total_amount_received = $existing_amount_received + $new_amount_received;
+
+            // Prepare data for updating
+            $update_data = array(
+                'amount_received' => $total_amount_received,
+                'notes' => $data['notes'], // Update notes if needed
+                // Other fields to update can be added here
+            );
+
+            // Update the existing record
+            $this->db->where('payment_id', $payment_id);
+            return $this->db->update('payments', $update_data);
+        } else {
+            // Invoice ID does not exist, insert new record
+            return $this->db->insert('payments', $data);
+        }
+    }
+
+    public function save_due_payment($data) {
+        $invoice_id = $data['invoice_id'];
+
+        // Check if the invoice_id exists in the due_payments table
+        $this->db->select('due_payment_id');
+        $this->db->from('due_payments');
+        $this->db->where('invoice_id', $invoice_id);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            // Invoice ID exists, update the record
+            $due_payment_id = $query->row()->due_payment_id;
+
+            // Remove 'invoice_id' from data to prevent updating the primary key
+            unset($data['invoice_id']);
+
+            // Update the existing record
+            $this->db->where('due_payment_id', $due_payment_id);
+            return $this->db->update('due_payments', $data);
+        } else {
+            // Invoice ID does not exist, insert new record
+            return $this->db->insert('due_payments', $data);
+        }
     }
     
 
+
+    public function get_amount_due_by_invoice_id($invoice_id) {
+        $this->db->select('amount_due');
+        $this->db->from('due_payments');
+        $this->db->where('invoice_id', $invoice_id);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            // Invoice ID exists, return the amount_due
+            return $query->row()->amount_due;
+        } else {
+            // Invoice ID does not exist, return NULL or any identifier
+            return NULL;
+        }
+    }
+
+
+    public function get_customer_invoices_details($customer_unique_id) {
+        // Get invoice details
+        $this->db->select('invoice_id, invoice_date, invoice_no, project_name');
+        $this->db->from('invoices');
+        $this->db->where('customer_unique_id', $customer_unique_id);
+        $invoice_query = $this->db->get();
+        $invoices = $invoice_query->result_array();
+
+        // Get amount_due and amount_received for each invoice
+        foreach ($invoices as &$invoice) {
+            $invoice_id = $invoice['invoice_id'];
+
+            // Get amount_due from due_payments
+            $this->db->select('amount_due');
+            $this->db->from('due_payments');
+            $this->db->where('invoice_id', $invoice_id);
+            $due_payment_query = $this->db->get();
+            $due_payment = $due_payment_query->row_array();
+            $invoice['amount_due'] = $due_payment ? $due_payment['amount_due'] : 0;
+
+            // Get amount_received from payments
+            $this->db->select('SUM(amount_received) as total_received');
+            $this->db->from('payments');
+            $this->db->where('invoice_id', $invoice_id);
+            $payment_query = $this->db->get();
+            $payment = $payment_query->row_array();
+            $invoice['amount_received'] = $payment ? $payment['total_received'] : 0;
+        }
+
+        return $invoices;
+    }
+
+    public function get_customer_details($customer_unique_id) {
+        // Select the required columns from the new_customer and billing_address tables
+        $this->db->select('new_customer.customer_name, billing_address.address, billing_address.city');
+        $this->db->from('new_customer');
+        $this->db->join('billing_address', 'new_customer.customer_unique_id = billing_address.customer_unique_id', 'left');
+        $this->db->where('new_customer.customer_unique_id', $customer_unique_id);
+
+        // Execute the query and fetch the result
+        $query = $this->db->get();
+        return $query->row_array();
+    }
 }

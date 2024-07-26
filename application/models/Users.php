@@ -31,7 +31,7 @@
     }
 
     public function get_all_customers() {
-      $this->db->select('nc.customer_name, nc.company_name, nc.customer_email, nc.customer_phone, nc.receivables');
+      $this->db->select('nc.customer_name, nc.company_name, nc.customer_email, nc.customer_phone, nc.recievables');
       $this->db->from('new_customer nc');
       $this->db->join('other_details_of_customer odc', 'odc.customer_unique_id = nc.customer_unique_id', 'left');
       $this->db->join('billing_address ba', 'ba.customer_unique_id = nc.customer_unique_id', 'left');
@@ -62,4 +62,28 @@
           return [];
       }
   }
+
+  public function get_total_revenue()
+  {
+    // Initialize total revenue
+    $total_revenue = 0;
+
+    // Get all invoice_ids from the invoices table
+    $this->db->select('invoice_id');
+    $invoice_ids = $this->db->get('invoices')->result_array();
+
+    // Loop through each invoice_id
+    foreach ($invoice_ids as $invoice) {
+        // Get the subtotal from items table for each invoice_id
+        $this->db->select_sum('sub_total');
+        $this->db->where('invoice_id', $invoice['invoice_id']);
+        $sub_total_result = $this->db->get('items')->row_array();
+        
+        // Add the sub_total to total_revenue
+        $total_revenue += isset($sub_total_result['sub_total']) ? $sub_total_result['sub_total'] : 0;
+    }
+
+    return $total_revenue;
   }
+
+}

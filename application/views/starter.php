@@ -61,7 +61,7 @@ table caption {
           <div class="d-flex justify-content-between align-items-center">
             <div class='col-sm-6'>
               <div class="row"><h3 class="card-title">Current</h3></div>
-              <div class="row"><h4>BHD000</h4></div>
+              <div class="row"><h4>BHD: <?= $total_revenue ?></h4></div>
             </div>
             <div class='col-sm-6'>
               <div class="row"><h3 class="card-title">Overdue</h3></div>
@@ -79,7 +79,6 @@ table caption {
         <tr>
             <th>Customer Name</th>
             <th>Company Name</th>
-            <th>Receivables</th>
             <th>View Statment</th>
         </tr>
     </thead>
@@ -89,7 +88,6 @@ table caption {
                 <tr>
                     <td><?php echo $customer['customer_name']; ?></td>
                     <td><?php echo $customer['company_name']; ?></td>
-                    <td><?php echo $customer['recievables']; ?></td>
                     <td><a href="<?php echo base_url('viewstatment/' . $customer['customer_unique_id']); ?>"><i class="fas fa-eye"></i></a></td>
                 </tr>
             <?php endforeach; ?>

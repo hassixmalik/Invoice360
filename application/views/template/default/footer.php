@@ -2,9 +2,9 @@
   <?php if($show['footer'] === true) { ?>
   <footer class="main-footer">
     <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
+    <!-- <div class="float-right d-none d-sm-inline">
       Anything you want
-    </div>
+    </div> -->
     <!-- Default to the left -->
     <strong>Copyright &copy; 2024-2034 <a href="https://hassixmalik.github.io">HASSIXMALIK</a>.</strong> All rights reserved.
   </footer>

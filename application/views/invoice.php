@@ -177,7 +177,7 @@
     <div class="dropdown">
         <button class="dropdown-toggle"><i class="fas fa-file-alt"></i> PDF/Print</button>
         <div class="dropdown-menu">
-            <a><i class="fas fa-file-pdf" id='savePdfBtn'></i> PDF</a>
+            <a id='savePdfBtn'><i class="fas fa-file-pdf" id='savePdfBtn'></i> PDF</a>
             <a  id="printBtn"><i class="fas fa-print"></i> Print</a>
         </div>
     </div>
@@ -195,7 +195,7 @@
             <div class="invoice-details">
                 <h1 style='color:blue'>INVOICE</h1>
                 <p><span id="invoice-number">#<?= $invoice_no ?></span></p>
-                <p class="bold">Balance Due: <span id="balance-due">BHD 20</span></p>
+                <p class="bold">Balance Due: <span id="balance-due">BHD <?= $amount_due ?></span></p>
             </div>
         </div>
 
@@ -291,6 +291,8 @@
         </button>
       </div>
       <div class="modal-body">
+        <p style='background-color: #3bd4d454; border-radius: 5px; text-align: center;'>Total Receivable: BHD <b><?= $invoice_details[0]['Subtotal'] ?></b></p>
+        <p style='background-color: #80808054; border-radius: 5px; text-align: center; margin-top:5px'>Due Amount: BHD <b><?= $amount_due ?></b></p>
         <form id="paymentForm">
           <div class="form-group">
             <label for="payment_no">Payment Number</label>
@@ -313,6 +315,7 @@
             <textarea class="form-control" id="notes" name="notes"></textarea>
           </div>
           <input type="hidden" id="invoiceNo" name="invoice_no" value="<?= $invoice_no ?>">
+          <input type="hidden" id="subtotal" name="sub_total" value="<?= $invoice_details[0]['Subtotal'] ?>">
           <!-- <div class="form-group">
             <label for="paymentDate">Payment Date</label>
             <input type="date" class="form-control" id="paymentDate" name="payment_date" value="<?php echo date('Y-m-d'); ?>">
@@ -364,7 +367,7 @@
                     }
                 },
                 error: function(xhr, status, error) {
-                    alert('An error occurred while saving the payment. Details: ' + error);
+                    alert('Error! Refresh the page then save payment. Details: ' + error);
                     console.error('Error details:', xhr.responseText);
                 }
             });
