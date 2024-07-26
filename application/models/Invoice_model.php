@@ -189,6 +189,23 @@ class Invoice_model extends MY_Model {
         return $this->db->update('quotations');
     }
 
+    public function get_invoice_id_by_number($invoice_no) {
+        // Using CodeIgniter's Query Builder class
+        $this->db->select('invoice_id');
+        $this->db->from('invoices');
+        $this->db->where('invoice_no', $invoice_no);
+        $query = $this->db->get();
+        
+        // Check if any record is returned
+        if ($query->num_rows() > 0) {
+            // Fetch the first row (which is the only row expected as invoice_no is unique)
+            return $query->row()->invoice_id;
+        } else {
+            // No record found for the provided invoice_no
+            return null;
+        }
+    }
+    
     public function save_payment($data) {
         return $this->db->insert('payments', $data);
     }

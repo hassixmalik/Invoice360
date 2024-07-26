@@ -194,7 +194,7 @@
             </div>
             <div class="invoice-details">
                 <h1 style='color:blue'>INVOICE</h1>
-                <p><span id="quote-number">#<?= $invoice_no ?></span></p>
+                <p><span id="invoice-number">#<?= $invoice_no ?></span></p>
                 <p class="bold">Balance Due: <span id="balance-due">BHD 20</span></p>
             </div>
         </div>
@@ -293,16 +293,16 @@
       <div class="modal-body">
         <form id="paymentForm">
           <div class="form-group">
-            <label for="customerName">Customer Name</label>
-            <input type="text" class="form-control" id="customerName" name="customer_name" value='<?= $invoice_details[0]['Name'] ?>'>
-          </div>
-          <div class="form-group">
             <label for="payment_no">Payment Number</label>
             <input type="text" class="form-control" id="paymentNo" name="payment_no" value="<?php echo substr(md5(uniqid(mt_rand(), true)), 0, 4); ?>" readonly>
           </div>
           <div class="form-group">
             <label for="dueDate">Due Date</label>
-            <input type="date" class="form-control" id="dueDate" name="due_date" value='<?= $invoice_details[0]['Due date'] ?>' required>
+            <input type="date" class="form-control" id="dueDate" name="due_date" value='<?= $invoice_details[0]['Due date'] ?>' readonly>
+          </div>
+          <div class="form-group">
+            <label for="customerName">Customer Name</label>
+            <input type="text" class="form-control" id="customerName" name="customer_name" value='<?= $invoice_details[0]['Name'] ?>'>
           </div>
           <div class="form-group">
             <label for="amountReceived">Amount Received</label>
@@ -313,14 +313,14 @@
             <textarea class="form-control" id="notes" name="notes"></textarea>
           </div>
           <input type="hidden" id="invoiceNo" name="invoice_no" value="<?= $invoice_no ?>">
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="paymentDate">Payment Date</label>
             <input type="date" class="form-control" id="paymentDate" name="payment_date" value="<?php echo date('Y-m-d'); ?>">
-          </div>
-          <div class="modal-footer">
+          </div> -->
+          <!-- <div class="modal-footer"> -->
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Save</button>
-          </div>
+          <!-- </div> -->
         </form>
       </div>
     </div>
@@ -352,7 +352,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '<?php echo base_url("invoice/save_payment"); ?>',
+                url: '<?php echo base_url("save_payment"); ?>',
                 data: formData,
                 dataType: 'json',
                 success: function(response) {
@@ -363,8 +363,9 @@
                         alert(response.message);
                     }
                 },
-                error: function() {
-                    alert('An error occurred while saving the payment.');
+                error: function(xhr, status, error) {
+                    alert('An error occurred while saving the payment. Details: ' + error);
+                    console.error('Error details:', xhr.responseText);
                 }
             });
         } else {

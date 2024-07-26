@@ -107,6 +107,8 @@ class Invoice extends CI_Controller {
     public function viewinvoice($invoice_no){
         $data['invoice_details'] = $this->Invoice_model->get_invoice_details($invoice_no);
         $data['invoice_no'] = $invoice_no;
+        $invoice_id=$this->Invoice_model->get_invoice_id_by_number($invoice_no);
+        
 
         $this->template->page_title('Invoice')->load('invoice', $data);
     }
@@ -194,14 +196,17 @@ class Invoice extends CI_Controller {
         }
     }
     public function save_payment() {
+        $invoice_no=$this->input->post('invoice_no');
+        $invoice_id= $this->Invoice_model->get_invoice_id_by_number($invoice_no);
         $data = array(
             //'customer_name' => $this->input->post('customer_name'),
             'payment_id' => $this->input->post('payment_no'),
-            'payment_date' => $this->input->post('payment_date'),
+            'payment_date' =>  date('Y-m-d'),
             'amount_received' => $this->input->post('amount_received'),
             'notes' => $this->input->post('notes'),
-            'invoice_no' => $this->input->post('invoice_no')
+            'invoice_id' => $invoice_id
         );
+        error_log(print_r($data, true)); // This will log data to the server's error log
         $result = $this->Invoice_model->save_payment($data);
     
         if ($result) {
@@ -211,4 +216,7 @@ class Invoice extends CI_Controller {
         }
     }
     
+    public function viewstatment($customer_unique_id){
+
+    }
 }
