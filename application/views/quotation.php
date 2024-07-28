@@ -36,6 +36,7 @@
         border-collapse: collapse;
         width: 100%;
         margin-top: 20px;
+  
     }
 
     .table-bordered th, .table-bordered td {
@@ -45,7 +46,7 @@
     }
 
     .table-bordered th {
-        background-color: #f4f4f4;
+        background-color: #3756a6;
     }
 
     .invoice-header {
@@ -95,7 +96,7 @@
         padding: 10mm;
         box-sizing: border-box;
         font-family: Arial, sans-serif;
-        font-size: 10px;
+        font-size: 12px;
         position: relative;
     }
 
@@ -168,6 +169,9 @@
         width: 130px;
         
     }
+    th{
+        color:white;
+    }
     </style>
 
 <body>
@@ -193,7 +197,7 @@
                 <p><a href="mailto:naeem.machinerepairing@gmail.com">naeem.machinerepairing@gmail.com</a></p>
             </div>
             <div class="invoice-details">
-                <h1 style='color:blue'>Quotation</h1>
+                <h1 style='color:#3756a6'>Quotation</h1>
                 <p><span id="quote-number">#<?= $quotation_no ?></span></p>
                 <p class="bold"> <span id="balance-due"></span></p>
             </div>
@@ -204,17 +208,17 @@
                 <tr>
                     <td style="width: 50%;">
                         <p>Bill To</p>
-                        <p class="bold"><span id="customer-name"><?= $quotation_details[0]['Name'] ?></span></p>
-                        <p><span id="customer-address"><?= $quotation_details[0]['Address'] ?></span></p>
-                        <p><span id="customer-city"><?= $quotation_details[0]['City'] ?></span></p>
+                        <p class="bold"><span id="customer-name"><b>Name: </b><?= $quotation_details[0]['Name'] ?></span></p>
+                        <p><span id="customer-address"><b>Address: </b><?= $quotation_details[0]['Address'] ?></span></p>
+                        <p><span id="customer-city"><b>City: </b><?= $quotation_details[0]['City'] ?></span></p>
                     </td>
                     <td style="width: 50%;" class="text-right">
-                        <p>Date: <span id="invoice-date"><?= $quotation_details[0]['Date'] ?></span></p>
+                        <p><b>Date: </b>Date: <span id="invoice-date"><?= $quotation_details[0]['Date'] ?></span></p>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <p>Subject: <span id="invoice-subject"><?= $quotation_details[0]['Subject'] ?></span></p>
+                        <p><b>Subject: </b> <span id="invoice-subject"><?= $quotation_details[0]['Subject'] ?></span></p>
                     </td>
                 </tr>
             </tbody>
@@ -258,7 +262,7 @@
                     <tr>
                         <td style="width:50%">
                             <p>
-                                <b>Terms and Conditions:</b>
+                                <b style='color:#3756a6'>Terms and Conditions:</b>
                                 <p>
                                     <ul>
                                         <li>70 % advance prior to work after approval</li>
@@ -272,7 +276,7 @@
                         </td>
                         <td style="width:50%">
                             <p class="text-right">
-                                Bank Details:<br>
+                                <b style='color:#3756a6'>Bank Details:</b><br>
                                 IBAN: BH69BBKU00200006739065<br>
                                 Cheque's Name: Naeem Machine
                             </p>
@@ -280,7 +284,7 @@
                     </tr>
                 </tbody>
             </table>
-            <p><b>
+            <p style='color:#3756a6'><b>
             Thanks for Trusting in Naeem Machine Repairing Co.</p>
             <p>For Naeem Machine Repairing Co W.L.L</p>
             </b>
@@ -316,122 +320,181 @@ document.getElementById('printBtn').addEventListener('click', function () {
     printWindow.document.write('<html><head><title>Print</title>');
     printWindow.document.write('<style>');
     printWindow.document.write(`
-        /* Include your in-page CSS here */
-        body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    font-size:12px;
-}
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+    }
 
-.text-right {
-    text-align: right;
-}
+    .text-right {
+        text-align: right;
+    }
 
-.bold {
-    font-weight: bold;
-}
+    .bold {
+        font-weight: bold;
+    }
+
+    .container {
+        width: 80%;
+        margin: auto;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1, h2, h3, p {
+        margin: 0;
+    }
+
+    h1 {
+        margin-bottom: 10px;
+    }
+
+    .table-bordered {
+        border: 1px solid #ddd;
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+        color:white;
 
 
-h1, h2, h3, p {
-    margin: 0;
-}
+    }
 
-h1 {
-    margin-bottom: 10px;
-}
+    .table-bordered th, .table-bordered td {
+        border: 1px solid #ddd;
+        padding: 5px;
+        text-align: center;
+    }
 
-.table-bordered {
-    border: 1px solid #ddd;
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 20px;
-    font-size:12px;
-}
+    .table-bordered th {
+        background-color: #3756a6;
+    }
 
-.table-bordered th, .table-bordered td {
-    border: 1px solid #ddd;
-    padding: 5px;
-    text-align: center;
-    font-size:12px;
-}
+    .invoice-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-.table-bordered th {
-    background-color: #f4f4f4;
-    font-size:12px;
-}
+    .invoice-header .company-details {
+        text-align: left;
+    }
 
-.invoice-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    .invoice-header .invoice-details {
+        text-align: right;
+    }
 
-.invoice-header .company-details {
-    text-align: left;
-}
+    .company-details p, .invoice-details p {
+        margin: 5px 0;
+    }
 
-.invoice-header .invoice-details {
-    text-align: right;
-}
+    .myfooter {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 0.9em;
+        color: #777;
+        border-top: 1px solid #ddd;
+        padding-top: 10px;
+    }
 
-.company-details p, .invoice-details p {
-    margin: 5px 0;
-}
+    .text-right {
+        text-align: right;
+    }
 
-.myfooter {
-    margin-top: 30px;
-    text-align: center;
-    font-size: 0.9em;
-    color: #777;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-}
+    .text-center {
+        text-align: center;
+    }
 
-.text-right {
-    text-align: right;
-}
+    @page {
+        size: A4;
+        margin: 20mm;
+    }
 
-.text-center {
-    text-align: center;
-}
+    .contains {
+        width: 210mm;
+        height: 297mm;
+        margin: 0 auto;
+        padding: 10mm;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        position: relative;
+    }
 
-@page {
-    size: A4;
-    margin: 20mm;
-}
+    .container {
+        width: 100%;
+        height: 100%;
+        padding: 5mm;
+        box-sizing: border-box;
+        background-color: #fff;
+        position: relative;
+    }
 
-.contains {
-    width: 210mm;
-    height: 297mm;
-    margin: 0 auto;
-    padding: 10mm;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-    font-size: 10px;
-    position: relative;
-}
+    .fixed-footer-content {
+        position: absolute;
+        bottom: 50px;
+        width: 90%;
+    }
 
-.container {
-    width: 100%;
-    height: 100%;
-    padding: 5mm;
-    box-sizing: border-box;
-    background-color: #fff;
-    position: relative;
-}
-
-.fixed-footer-content {
-    position: absolute;
-    bottom: 50px;
-    width: 90%;
-}
-
-        .signature-img {
-            width: 130px;
+        .button-row {
+        text-align: center;
+        border-radius: 5px;
+    }
+    .button-row button, .button-row .dropdown {
+        margin: 5px;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        color: #fff;
+        font-size: 14px;
+    }
+    .btn-edit {
+        background-color: #6c757d;
+    }
+    .btn-send-mail {
+        background-color: #007bff;
+    }
+    .btn-convert {
+        background-color: #17a2b8;
+    }
+    .dropdown {
+        display: inline-block;
+        position: relative;
+    }
+    .dropdown-toggle {
+        background-color: #28a745;
+    }
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: #28a745;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        z-index: 1;
+    }
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+    .dropdown-menu a {
+        display: block;
+        padding: 8px 15px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    .dropdown-menu a:hover {
+        background-color: #218838;
+    }
+    .signature-img {
+        width: 130px;
+        
+    }
+    th{
+        color:white;
+    }
             
-        }
     `);
     printWindow.document.write('</style>');
     printWindow.document.write('</head><body>');

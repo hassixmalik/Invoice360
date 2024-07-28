@@ -94,7 +94,7 @@
         padding: 10mm;
         box-sizing: border-box;
         font-family: Arial, sans-serif;
-        font-size: 10px;
+        font-size: 12px;
         position: relative;
     }
 
@@ -167,6 +167,15 @@
         width: 130px;
         
     }
+    .footer-image img {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
     </style>
 
 <body>
@@ -192,7 +201,7 @@
                 <p><a href="mailto:naeem.machinerepairing@gmail.com">naeem.machinerepairing@gmail.com</a></p>
             </div>
             <div class="invoice-details">
-                <h1 style='color:blue'>Statment</h1>
+                <h1 style='color:#3756a6'>Statment</h1>
                 <p><span id="quote-number">#<?= $customer_id ?></span></p>
                 <p class="bold"> <span id="balance-due"></span></p>
             </div>
@@ -382,7 +391,7 @@ h1 {
     padding: 10mm;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
-    font-size: 10px;
+    font-size: 12px;
     position: relative;
 }
 
