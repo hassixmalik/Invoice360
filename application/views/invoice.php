@@ -177,7 +177,7 @@
 <body>
 <div class="button-row">
     <a class="btn-edit btn btn-primary" href='<?php echo base_url('editinvoice/' . $invoice_no); ?>'><i class="fas fa-edit"></i> Edit</a>
-    <button class="btn-send-mail"><i class="fas fa-envelope"></i> Send Mail</button>
+    <a class="btn-send-mail btn btn-failure" href='<?php echo base_url('sendmail/' . $invoice_no); ?>'><i class="fas fa-envelope"></i> Send Mail</a>
     <div class="dropdown">
         <button class="dropdown-toggle"><i class="fas fa-file-alt"></i> PDF/Print</button>
         <div class="dropdown-menu">
@@ -334,10 +334,11 @@
   </div>
 </div>
 </body>
+<!DOCTYPE html>
+
 <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-
 <script>
         document.getElementById('savePdfBtn').addEventListener('click', function () {
         var element = document.getElementById('contentToPrint');

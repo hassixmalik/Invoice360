@@ -79,6 +79,10 @@ $route['deleteinvoice/(:num)'] = 'invoice/deleteinvoice/$1';
 $route['save_payment'] = 'invoice/save_payment';
 $route['viewstatment/(:num)'] = 'invoice/viewstatment/$1';
 
+//Email
+$route['sendmail/(:num)'] = 'emailcontroler/sendmail/$1';
+
+
 //error routes
 $route['404_override'] = 'errors/Custom404';
 $route['translate_uri_dashes'] = FALSE;

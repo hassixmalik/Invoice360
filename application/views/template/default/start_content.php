@@ -9,7 +9,7 @@
           <div class="col-sm-6">
             <?php if($show['breadcrums'] === true) {?>
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="<?=base_url()?>">Home</a></li>
+              <li class="breadcrumb-item"><a href="<?php echo base_url('starter') ?>">Home</a></li>
               <li class="breadcrumb-item active"><?php echo $page_title; ?></li>
             </ol>
             <?php } ?>

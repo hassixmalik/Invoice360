@@ -42,6 +42,7 @@ class Invoice_model extends MY_Model {
             q.expiry_date AS `Due date`,
             nc.customer_name AS `Name`,
             ba.address AS `Address`,
+            nc.customer_email AS `Email`,
             ba.city AS `City`,
             q.subject AS `Subject`,
             i.service_description AS `Work description`,
