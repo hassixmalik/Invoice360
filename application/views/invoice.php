@@ -421,7 +421,7 @@ document.getElementById('printBtn').addEventListener('click', function () {
     }
 
     .table-bordered {
-        border: 1px solid #ddd;
+        border: 1px solid black;
         border-collapse: collapse;
         width: 100%;
         margin-top: 20px;
@@ -556,9 +556,6 @@ document.getElementById('printBtn').addEventListener('click', function () {
     .signature-img {
         width: 130px;
         
-    }
-    th{
-        color:white;
     }
     
     `);
