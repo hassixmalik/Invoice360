@@ -31,11 +31,12 @@
     }
 
     public function get_all_customers() {
-      $this->db->select('nc.customer_name, nc.company_name, nc.customer_email, nc.customer_phone, nc.recievables, nc.customer_unique_id');
+      $this->db->select('nc.customer_name, nc.company_name, nc.customer_email, nc.customer_phone, nc.recievables, nc.customer_unique_id, nc.is_active');
       $this->db->from('new_customer nc');
       $this->db->join('other_details_of_customer odc', 'odc.customer_unique_id = nc.customer_unique_id', 'left');
       $this->db->join('billing_address ba', 'ba.customer_unique_id = nc.customer_unique_id', 'left');
       $this->db->join('shipping_address sa', 'sa.customer_unique_id = nc.customer_unique_id', 'left');
+      $this->db->where('nc.is_active', 1);
       $query = $this->db->get();
       return $query->result_array();
     }
@@ -133,6 +134,11 @@ public function update_shipping_address($customer_unique_id, $data) {
     $this->db->update('shipping_address', $data);
 }
 
+
+public function update_customer_status($customer_unique_id, $data) {
+  $this->db->where('customer_unique_id', $customer_unique_id);
+  $this->db->update('new_customer', $data);
+}
 
 
 }

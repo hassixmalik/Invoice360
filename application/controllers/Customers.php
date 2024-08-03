@@ -204,5 +204,15 @@ class Customers extends CI_Controller {
 		// Redirect to customers list page
 		redirect('customers/index'); // Adjust the redirect as needed
 	}
+
+	public function deletecustomer($customer_unique_id) {
+		// Update the is_active status to 0 for the given customer_unique_id
+		$data = array('is_active' => 0);
+		$this->Users->update_customer_status($customer_unique_id, $data);
+	
+		// Redirect to the customers list page or any other desired page
+		redirect('customers/index');
+	}
+	
 	
 }

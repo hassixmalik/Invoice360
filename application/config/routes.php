@@ -61,6 +61,7 @@ $route['addcustomer'] = 'customers/addcustomer';
 $route['savecustomerform'] = 'customers/savecustomerform';
 $route['editcustomer/(:any)'] = 'customers/editcustomer/$1';
 $route['updatecustomer'] = 'customers/updatecustomer';
+$route['deletecustomer/(:any)'] = 'customers/deletecustomer/$1';
 
 //quotation routes
 $route['quotation'] = 'quotation';
