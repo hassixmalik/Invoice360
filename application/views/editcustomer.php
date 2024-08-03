@@ -15,7 +15,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Edit Customer</h1>
+        <a class='btn btn-failure' href="deletecustomer">Delete Customer</a>
         <form action="<?php echo base_url('customers/updatecustomer'); ?>" method="post">
             <input type="hidden" name="customer_unique_id" value="<?php echo $customer['customer_unique_id']; ?>">
             
