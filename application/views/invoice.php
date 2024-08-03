@@ -194,7 +194,7 @@
             <div class="company-details">
                 <p><strong>Naeem Machine Repairing CO W.L.L</strong></p>
                 <p>Kingdom of Bahrain</p>
-                <p><a href="mailto:naeem.machinerepairing@gmail.com">naeem.machinerepairing@gmail.com</a></p>
+                <!-- <p><a href="mailto:naeem.machinerepairing@gmail.com">naeem.machinerepairing@gmail.com</a></p> -->
             </div>
             <div class="invoice-details">
                 <h1 style='color:#3756a6'>Invoice</h1>
@@ -210,7 +210,7 @@
                         <p>Bill To</p>
                         <p class="bold"><span id="customer-name"><b>Name: </b><?= $invoice_details[0]['Name'] ?></span></p>
                         <p><span id="customer-address"><b>Address: </b><?= $invoice_details[0]['Address'] ?></span></p>
-                        <p><span id="customer-city"><b>City: </b><?= $invoice_details[0]['City'] ?></span></p>
+                        <p><span id="customer-city"><b>Area: </b><?= $invoice_details[0]['City'] ?></span></p>
                     </td>
                     <td style="width: 50%;" class="text-right">
                         <p><b>Due Date: </b> <span id="invoice-date"><?= $invoice_details[0]['Due date'] ?></span></p>

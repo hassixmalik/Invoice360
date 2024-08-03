@@ -198,7 +198,7 @@
             <div class="company-details">
                 <p><strong>Naeem Machine Repairing CO W.L.L</strong></p>
                 <p>Kingdom of Bahrain</p>
-                <p><a href="mailto:naeem.machinerepairing@gmail.com">naeem.machinerepairing@gmail.com</a></p>
+                <!-- <p><a href="mailto:naeem.machinerepairing@gmail.com">naeem.machinerepairing@gmail.com</a></p> -->
             </div>
             <div class="invoice-details">
                 <h1 style='color:#3756a6'>Statment</h1>
