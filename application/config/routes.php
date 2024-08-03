@@ -59,6 +59,8 @@ $route['starter'] = 'starter/index';
 $route['customers'] = 'customers';
 $route['addcustomer'] = 'customers/addcustomer';
 $route['savecustomerform'] = 'customers/savecustomerform';
+$route['editcustomer/(:any)'] = 'customers/editcustomer/$1';
+$route['updatecustomer'] = 'customers/updatecustomer';
 
 //quotation routes
 $route['quotation'] = 'quotation';

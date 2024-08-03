@@ -31,7 +31,7 @@
     }
 
     public function get_all_customers() {
-      $this->db->select('nc.customer_name, nc.company_name, nc.customer_email, nc.customer_phone, nc.recievables');
+      $this->db->select('nc.customer_name, nc.company_name, nc.customer_email, nc.customer_phone, nc.recievables, nc.customer_unique_id');
       $this->db->from('new_customer nc');
       $this->db->join('other_details_of_customer odc', 'odc.customer_unique_id = nc.customer_unique_id', 'left');
       $this->db->join('billing_address ba', 'ba.customer_unique_id = nc.customer_unique_id', 'left');
@@ -85,5 +85,54 @@
 
     return $total_revenue;
   }
+
+  
+  
+  //used for update methods
+  public function get_customer_by_id($customer_unique_id) {
+    $this->db->where('customer_unique_id', $customer_unique_id);
+    $query = $this->db->get('new_customer');
+    return $query->row_array();
+  }
+
+public function get_other_details_by_id($customer_unique_id) {
+    $this->db->where('customer_unique_id', $customer_unique_id);
+    $query = $this->db->get('other_details_of_customer');
+    return $query->row_array();
+  }
+
+public function get_billing_address_by_id($customer_unique_id) {
+    $this->db->where('customer_unique_id', $customer_unique_id);
+    $query = $this->db->get('billing_address');
+    return $query->row_array();
+  }
+
+public function get_shipping_address_by_id($customer_unique_id) {
+    $this->db->where('customer_unique_id', $customer_unique_id);
+    $query = $this->db->get('shipping_address');
+    return $query->row_array();
+  }
+
+  public function update_customer($customer_unique_id, $data) {
+    $this->db->where('customer_unique_id', $customer_unique_id);
+    $this->db->update('new_customer', $data);
+}
+
+public function update_other_details($customer_unique_id, $data) {
+    $this->db->where('customer_unique_id', $customer_unique_id);
+    $this->db->update('other_details_of_customer', $data);
+}
+
+public function update_billing_address($customer_unique_id, $data) {
+    $this->db->where('customer_unique_id', $customer_unique_id);
+    $this->db->update('billing_address', $data);
+}
+
+public function update_shipping_address($customer_unique_id, $data) {
+    $this->db->where('customer_unique_id', $customer_unique_id);
+    $this->db->update('shipping_address', $data);
+}
+
+
 
 }

@@ -33,6 +33,7 @@
                         <th>EMAIL</th>
                         <th>WORK PHONE</th>
                         <th>RECEIVABLES (BCY)</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,6 +45,7 @@
                                 <td><?php echo $customer['customer_email']; ?></td>
                                 <td><?php echo $customer['customer_phone']; ?></td>
                                 <td><?php echo $customer['recievables']; ?></td>
+                                <td><a href="<?php echo base_url('editcustomer/' . $customer['customer_unique_id']); ?>"><i class="fas fa-pencil-alt"></i></a></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
